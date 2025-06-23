@@ -1,0 +1,20 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: homelab
+
+ports:
+  - port: 80:80
+    nodeFilters:
+      - loadbalancer
+  - port: 443:443
+    nodeFilters:
+      - loadbalancer
+kubeAPI:
+  hostPort: "6443"
+options:
+  k3s:
+    extraArgs:
+      - arg: --disable=traefik
+        nodeFilters:
+          - server:0
