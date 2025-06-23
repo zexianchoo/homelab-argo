@@ -1,6 +1,5 @@
 # homelab-argo
 
-
 # Goals:
 
 1. Use argocd for tunnel/ssh-free configurations
@@ -13,4 +12,9 @@
 8. External Secrets
 
 # Diagram: 
-![homelab diagram](diagram.png)`
+![homelab diagram](diagram.png)
+
+# k3d:
+`k3d cluster create homelab --config k3d-config.yaml --k3s-arg "--disable=traefik@server:*"`
+
+jic traefik spawns lol
