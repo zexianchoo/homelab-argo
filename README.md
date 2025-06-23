@@ -1,1 +1,16 @@
 # homelab-argo
+
+
+# Goals:
+
+1. Use argocd for tunnel/ssh-free configurations
+2. I will be reliant on monitoring / argocd dashboard
+3. Single node k8s cluster? microk8s/k3s/k3d?
+4. Auth (properly configured)
+5. Fail2ban, other nice security features
+6. public vs private subnet segregation
+7. Image updaters
+8. External Secrets
+
+# Diagram: 
+![homelab diagram](diagram.png)`
