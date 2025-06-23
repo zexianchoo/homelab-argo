@@ -1,6 +1,5 @@
 # homelab-argo
 
-
 # Goals:
 
 1. Use argocd for tunnel/ssh-free configurations
@@ -13,4 +12,4 @@
 8. External Secrets
 
 # Diagram: 
-![homelab diagram](diagram.png)`
+![homelab diagram](diagram.png)
