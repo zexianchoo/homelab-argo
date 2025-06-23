@@ -1,0 +1,34 @@
+# pihole-values.yaml
+# Use a LoadBalancer to expose the DNS ports (53) and the web UI (80)
+# to your home network via your server's IP address.
+service:
+  type: LoadBalancer
+
+# --- IMPORTANT: Set Your Admin Password ---
+# Change this to a strong, unique password for the Pi-hole web dashboard.
+adminPassword: "CHANGE_ME_TO_A_SECRET_PASSWORD"
+
+# Enable persistent storage for your Pi-hole configuration.
+persistence:
+  enabled: true
+  # This will create two volumes: one for /etc/pihole and one for /etc/dnsmasq.d
+  # using the default 'local-path' storage class in k3d.
+  storageClass: "local-path"
+  size: 2Gi
+
+# Configure the Traefik IngressRoute for the dashboard.
+ingress:
+  enabled: true
+  # We specify that we are using Traefik.
+  ingressClassName: traefik
+  hosts:
+    # Change 'yourdomain.com' to your actual domain.
+    - host: pihole.internal.yourdomain.com
+      paths:
+        - path: /
+          pathType: Prefix
+  # TLS configuration for the IngressRoute.
+  tls:
+    - secretName: pihole-internal-tls
+      hosts:
+        - pihole.internal.yourdomain.com
