@@ -13,3 +13,8 @@
 
 # Diagram: 
 ![homelab diagram](diagram.png)
+
+# k3d:
+`k3d cluster create homelab --config k3d-config.yaml --k3s-arg "--disable=traefik@server:*"`
+
+jic traefik spawns lol
