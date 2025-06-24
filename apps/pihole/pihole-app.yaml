@@ -1,40 +1,21 @@
-<<<<<<< Updated upstream
-# /apps/pihole-app.yaml
-=======
->>>>>>> Stashed changes
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: pihole
-<<<<<<< Updated upstream
-  namespace: argocd
+  namespace: argocd # It's standard practice for child Application resources to live in the same namespace as the parent app (argocd namespace)
 spec:
   project: default
   source:
-    repoURL: https://mojo2600.github.io/pihole-helm
-    chart: pihole
-    targetRevision: 2.31.0 
-
-    helm:
-      valueFiles:
-        - ./values.yaml 
-
-  # The destination is the same as before.
-=======
-  namespace: argocd 
-spec:
-  project: default
-  source:
-    repoURL: https://mojo2600.github.io/pihole-helm 
-    chart: pihole 
+    repoURL: https://mojo2600.github.io/pihole-helm # This is correct for the external Helm chart repository
+    chart: pihole # This is correct for the chart name within that repository
     targetRevision: 2.31.0
     helm:
+      # This is the change: The path here needs to be relative to the root of your homelab-argo.git repository
       valueFiles:
-        - apps/pihole/values.yaml 
->>>>>>> Stashed changes
+        - apps/pihole/values.yaml # <--- CORRECTED PATH
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: dns 
+    namespace: dns # This is the namespace where the Pi-hole *deployment* will go
 
   syncPolicy:
     automated:
