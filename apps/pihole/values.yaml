@@ -23,7 +23,7 @@ ingress:
   ingressClassName: traefik
   hosts:
     # Change 'yourdomain.com' to your actual domain.
-    - host: pihole.internal.yourdomain.com
+    - host: pihole.internal.seanchoo.top
       paths:
         - path: /
           pathType: Prefix
@@ -31,4 +31,4 @@ ingress:
   tls:
     - secretName: pihole-internal-tls
       hosts:
-        - pihole.internal.yourdomain.com
+        - pihole.internal.seanchoo.top
