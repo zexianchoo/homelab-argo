@@ -1,0 +1,19 @@
+kind: Application
+metadata:
+  name: cluster-issuers
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/zexianchoo/homelab-argo.git 
+    targetRevision: HEAD
+    path: manifests/certs 
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cert-manager 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

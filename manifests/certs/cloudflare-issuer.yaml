@@ -1,0 +1,21 @@
+# homelab-argo/manifests/certs/cloudflare-clusterissuer.yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: cloudflare-staging-issuer # <--- RENAMED TO REFLECT STAGING
+spec:
+  acme:
+    # You MUST replace this with your email address!
+    email: choozexian@gmail.com
+    server: https://acme-staging-v02.api.letsencrypt.org/directory # <--- CHANGED TO STAGING URL
+    privateKeySecretRef:
+      # Secret for ACME account private key (cert-manager manages this)
+      name: letsencrypt-staging-account-key # <--- RENAMED FOR STAGING ACCOUNT
+    solvers:
+    - dns01:
+        cloudflare:
+          email: choozexian@gmail.com
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret # Reference the secret created above
+            key: api-token # Key within the secret that holds the API token
+      selector: {} # Leave empty to use for all domains, or specify a selector if needed

@@ -22,3 +22,12 @@ ports:
   - port: 443:443
     nodeFilters:
       - loadbalancer
+
+  # *** ADD THESE LINES FOR PI-HOLE DNS ***
+  - port: 53:53/udp
+    nodeFilters:
+      - loadbalancer
+  - port: 53:53/tcp
+    nodeFilters:
+      - loadbalancer
+      

@@ -28,7 +28,7 @@ helm_resource(
   'cert-manager',
   chart='jetstack/cert-manager',
   namespace='cert-manager',
-  flags=['--version=1.16.1', '--set', 'crds.enabled=true', '--set', 'crds.keep=false'],
+  flags=['--version=1.16.1', '-f', 'argocd/cert-manager-values.yaml'],
   resource_deps=['namespace'],
   labels=['baseline'],
 )
