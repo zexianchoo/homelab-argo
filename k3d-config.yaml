@@ -27,7 +27,7 @@ ports:
   - port: 53:53/udp
     nodeFilters:
       - loadbalancer
+      
   - port: 53:53/tcp
     nodeFilters:
       - loadbalancer
-      

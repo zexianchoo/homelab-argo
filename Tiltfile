@@ -78,4 +78,4 @@ k8s_resource(
   resource_deps=['namespace', 'argo-cd'],
   labels=['baseline'],
 )
-
+k8s_yaml('manifests/certs/cloudflare.yaml')
