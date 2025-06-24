@@ -1,1 +1,3 @@
 argocd-repo-secret.yaml
+.env.*
+!.env.*.example

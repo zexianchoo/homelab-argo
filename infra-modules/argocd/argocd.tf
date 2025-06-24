@@ -48,7 +48,6 @@ resource "helm_release" "argocd" {
     yamlencode({
       configs = {
         secret = {
-          # GCP stores the secret as a raw string, so we don't need jsondecode.
           argocdServerAdminPassword = "admin"
         }
       }
@@ -63,4 +62,22 @@ resource "helm_release" "traefik" {
   chart      = "traefik"
   namespace  = "traefik"
   version    = "36.0.0"
+}
+
+
+# cert manager terraform
+resource "helm_release" "cert_manager" {
+  name = "cert-manager"
+  namespace        = "cert-manager"
+  create_namespace = true
+
+  chart = "jetstack/cert-manager"
+  version = "v1.14.5"
+  set {
+    name  = "installCRDs"
+    value = "true"
+    type  = "string" 
+  }
+
+  wait = true
 }
