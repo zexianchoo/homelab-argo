@@ -6,13 +6,11 @@ service:
 
 # --- IMPORTANT: Set Your Admin Password ---
 # Change this to a strong, unique password for the Pi-hole web dashboard.
-adminPassword: "CHANGE_ME_TO_A_SECRET_PASSWORD"
+adminPassword: "vervyeryastronglmaoo"
 
 # Enable persistent storage for your Pi-hole configuration.
 persistence:
   enabled: true
-  # This will create two volumes: one for /etc/pihole and one for /etc/dnsmasq.d
-  # using the default 'local-path' storage class in k3d.
   storageClass: "local-path"
   size: 2Gi
 
@@ -23,7 +21,7 @@ ingress:
   ingressClassName: traefik
   hosts:
     # Change 'yourdomain.com' to your actual domain.
-    - host: pihole.internal.yourdomain.com
+    - host: pihole.internal.seanchoo.top
       paths:
         - path: /
           pathType: Prefix
@@ -31,4 +29,4 @@ ingress:
   tls:
     - secretName: pihole-internal-tls
       hosts:
-        - pihole.internal.yourdomain.com
+        - pihole.internal.seanchoo.top
