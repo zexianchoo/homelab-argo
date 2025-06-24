@@ -1,8 +1,12 @@
+<<<<<<< Updated upstream
 # /apps/pihole-app.yaml
+=======
+>>>>>>> Stashed changes
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: pihole
+<<<<<<< Updated upstream
   namespace: argocd
 spec:
   project: default
@@ -16,6 +20,18 @@ spec:
         - ./values.yaml 
 
   # The destination is the same as before.
+=======
+  namespace: argocd 
+spec:
+  project: default
+  source:
+    repoURL: https://mojo2600.github.io/pihole-helm 
+    chart: pihole 
+    targetRevision: 2.31.0
+    helm:
+      valueFiles:
+        - apps/pihole/values.yaml 
+>>>>>>> Stashed changes
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: dns 
