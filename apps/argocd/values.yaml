@@ -1,0 +1,14 @@
+nameOverride: argocd
+
+dex:
+  enabled: false
+
+
+server:
+  service:
+    type: NodePort
+    nodePortHttp: 31443
+
+configs:
+  secret:
+    argocdServerAdminPassword: "$2a$10$5vm8wXaSdbuff0m9l21JdevzXBzJFPCi8sy6OOnpZMAG.fOXL7jvO" #admin
