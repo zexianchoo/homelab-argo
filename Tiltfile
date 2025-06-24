@@ -57,7 +57,7 @@ helm_resource(
   'argo-cd',
   chart='argo/argo-cd',
   namespace='argocd',
-  flags=['--version=7.7.5', '-f', 'apps/argocd/values.yaml'],
+  flags=['--version=7.7.5', '-f', 'argocd/values.yaml'],
   resource_deps=['namespace', 'argo-gh-creds'],
   labels=['baseline'],
 )
