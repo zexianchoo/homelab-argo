@@ -11,24 +11,16 @@ spec:
         files:
           - path: ingress/*.yaml
         repoURL: https://github.com/zexianchoo/homelab-argo.git
-        revision: main
+        revision: HEAD
   template:
     apiVersion: traefik.containo.us/v1alpha1
     kind: IngressRoute
     metadata:
-      # The name of the generated IngressRoute resource.
-      # e.g., "argocd-server-ingressroute"
       name: '{{serviceName}}-ingressroute'
-      
-      # The IngressRoute MUST be created in the same namespace as the
-      # service it is routing to. This value comes from your .yaml files.
       namespace: '{{namespace}}'
-      
-      # We add an annotation to associate the generated resource with an Argo CD
-      # project. This replaces the `spec.project` field from the old template.
       annotations:
         argocd.argoproj.io/project: default
-        
+
     spec:
       entryPoints:
         - websecure
@@ -37,7 +29,10 @@ spec:
           kind: Rule
           services:
             - name: '{{serviceName}}'
-              port: {{servicePort}}
+              # Quoting the port value makes the template more robust, as
+              # IngressRoute ports can be numbers or string names.
+              port: '{{servicePort}}'
               scheme: '{{scheme}}'
       tls:
         certResolver: myresolver
+
