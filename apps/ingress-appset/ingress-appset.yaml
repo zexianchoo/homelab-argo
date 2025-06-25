@@ -14,7 +14,7 @@ spec:
         revision: HEAD
   template:
     metadata:
-      name: '{{path.basenameNormalized}}-ingress'
+      name: '{{hostname}}-ingress'
       namespace: '{{namespace}}'
     spec:
       destination:
