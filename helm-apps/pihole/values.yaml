@@ -12,7 +12,6 @@ admin:
   enabled: true
   existingSecret: "pihole-creds"
 
-
 # Enable persistent storage for your Pi-hole configuration.
 persistence:
   enabled: true

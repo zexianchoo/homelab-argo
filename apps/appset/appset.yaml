@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: appset
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/zexianchoo/homelab-argo.git
+      revision: HEAD
+      # Use the File Generator to find and parse config.json in each directory
+      files:
+      - path: "helm-apps/*/config.json"
+
+  template:
+    metadata:
+      # Use the directory name for the app name
+      name: '{{path.basename}}'
+    spec:
+      project: "default"
+      source:
+        repoURL: '{{repoURL}}'
+        chart: '{{chart}}'
+        targetRevision: '{{targetRevision}}'
+        helm:
+          valueFiles:
+          - '{{path.directory}}/values.yaml'
+
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: '{{path.basename}}'
+        
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
