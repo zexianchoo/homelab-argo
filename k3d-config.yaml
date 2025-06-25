@@ -28,6 +28,6 @@ ports:
     nodeFilters:
       - loadbalancer
       
-  - port: 53:30053/tcp
+:  - port: 53:30053/tcp
     nodeFilters:
       - loadbalancer
