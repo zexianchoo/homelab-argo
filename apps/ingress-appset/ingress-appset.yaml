@@ -1,41 +1,43 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
+  labels:
+    argocd.argoproj.io/instance: homelab-root
   name: ingress-appset
   namespace: argocd
 spec:
   generators:
-  - git:
-      repoURL: https://github.com/zexianchoo/homelab-argo.git
-      revision: HEAD
-      # Scan for all the ingress definition YAML files
-      files:
-      - path: "ingress/*.yaml"
-
+    - git:
+        files:
+          - path: ingress/*.yaml
+        repoURL: https://github.com/zexianchoo/homelab-argo.git
+        revision: HEAD
   template:
     metadata:
-      # Use the filename for the app name (e.g., "argocd-ingress")
       name: '{{path.basenameNormalized}}-ingress'
-      namespace: '{{namespace}}' # Use namespace from params file
+      namespace: '{{namespace}}'
     spec:
-      project: "default"
-      # We are not using Helm here. We are generating a manifest directly.
+      destination:
+        namespace: '{{namespace}}'
+        server: https://kubernetes.default.svc
+      project: default
       source:
-        # This is a clever trick to define the manifest right here in the template
-        chart: .
+        repoURL: https://github.com/zexianchoo/homelab-argo.git 
+        targetRevision: HEAD                                      # <-- FIX 2: Add the revision here
+
+        # The rest of your configuration is correct
+        chart: . # This placeholder is fine in this context
         helm:
-          # Pass the parameters from the YAML file into the template
           parameters:
-          - name: hostname
-            value: "{{hostname}}"
-          - name: serviceName
-            value: "{{serviceName}}"
-          - name: servicePort
-            value: "{{servicePort}}"
-          - name: scheme
-            value: "{{scheme}}"
-          releaseName: "ingresstemplate"
-          # Define the IngressRoute manifest as a string template
+            - name: hostname
+              value: '{{hostname}}'
+            - name: serviceName
+              value: '{{serviceName}}'
+            - name: servicePort
+              value: '{{servicePort}}'
+            - name: scheme
+              value: '{{scheme}}'
+          releaseName: ingresstemplate
           values: |
             manifest: |
               apiVersion: traefik.containo.us/v1alpha1
@@ -56,11 +58,6 @@ spec:
                         {{- end }}
                 tls:
                   certResolver: myresolver
-
-      destination:
-        server: "https://kubernetes.default.svc"
-        namespace: '{{namespace}}' # Deploy the IngressRoute into the app's namespace
-      
       syncPolicy:
         automated:
           prune: true
