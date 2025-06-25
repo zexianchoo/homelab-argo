@@ -11,7 +11,7 @@ spec:
         files:
           - path: ingress/*.yaml
         repoURL: https://github.com/zexianchoo/homelab-argo.git
-        revision: HEAD
+        revision: main
   template:
     # --- Metadata for the generated Application object ---
     metadata:
@@ -32,7 +32,7 @@ spec:
       source:
         # Point to the same repo and branch. This is a required field.
         repoURL: https://github.com/zexianchoo/homelab-argo.git
-        targetRevision: HEAD
+        targetRevision: main
 
         chart: .
         helm:
