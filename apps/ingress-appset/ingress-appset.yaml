@@ -13,74 +13,31 @@ spec:
         repoURL: https://github.com/zexianchoo/homelab-argo.git
         revision: main
   template:
-    # --- Metadata for the generated Application object ---
+    apiVersion: traefik.containo.us/v1alpha1
+    kind: IngressRoute
     metadata:
-      # The name of the Application will be based on the hostname, e.g., "argo-seanchoo-top-ingress"
-      # This is more descriptive and guarantees uniqueness.
-      name: '{{hostname}}-ingress'
-      # The Application object itself MUST live in the 'argocd' namespace.
-      namespace: 'argocd'
-      # Add finalizers to ensure proper cleanup of child resources
-      finalizers:
-        - resources-finalizer.argocd.argoproj.io
-
-    # --- Spec for the generated Application object ---
+      # The name of the generated IngressRoute resource.
+      # e.g., "argocd-server-ingressroute"
+      name: '{{serviceName}}-ingressroute'
+      
+      # The IngressRoute MUST be created in the same namespace as the
+      # service it is routing to. This value comes from your .yaml files.
+      namespace: '{{namespace}}'
+      
+      # We add an annotation to associate the generated resource with an Argo CD
+      # project. This replaces the `spec.project` field from the old template.
+      annotations:
+        argocd.argoproj.io/project: default
+        
     spec:
-      project: "default"
-
-      # --- Source: Where the manifest template comes from ---
-      source:
-        # Point to the same repo and branch. This is a required field.
-        repoURL: https://github.com/zexianchoo/homelab-argo.git
-        targetRevision: main
-
-        chart: .
-        helm:
-          # We pass the values from your ingress/*.yaml files as Helm parameters.
-          parameters:
-            - name: hostname
-              value: '{{hostname}}'
-            - name: serviceName
-              value: '{{serviceName}}'
-            - name: servicePort
-              value: '{{servicePort}}'
-            - name: scheme
-              value: '{{scheme}}'
-          
-          # This is the inline template for the IngressRoute manifest.
-          # It's defined here once and reused for every application.
-          values: |
-            apiVersion: traefik.containo.us/v1alpha1
-            kind: IngressRoute
-            metadata:
-              name: '{{ .Values.serviceName }}-route'
-              # The namespace is set in the 'destination' block below.
-            spec:
-              entryPoints:
-                - websecure
-              routes:
-                - match: Host(`{{ .Values.hostname }}`)
-                  kind: Rule
-                  services:
-                    - name: '{{ .Values.serviceName }}'
-                      port: {{ .Values.servicePort }}
-                      {{- if .Values.scheme }}
-                      scheme: {{ .Values.scheme }}
-                      {{- end }}
-              tls:
-                certResolver: myresolver
-
-      # --- Destination: Where the IngressRoute will be deployed ---
-      destination:
-        server: "https://kubernetes.default.svc"
-        # The destination namespace comes from your parameter file (e.g., "dns", "argocd")
-        namespace: '{{namespace}}'
-
-      # --- Sync Policy ---
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        # This allows Argo CD to create the destination namespace if it doesn't exist.
-        syncOptions:
-          - CreateNamespace=true
+      entryPoints:
+        - websecure
+      routes:
+        - match: Host(`{{hostname}}`)
+          kind: Rule
+          services:
+            - name: '{{serviceName}}'
+              port: {{servicePort}}
+              scheme: '{{scheme}}'
+      tls:
+        certResolver: myresolver
