@@ -3,6 +3,7 @@ kind: Simple
 metadata:
   name: homelab
 servers: 1
+agents: 1
 ports:
 
   - port: 31443-31444:31443-31444
@@ -23,11 +24,10 @@ ports:
     nodeFilters:
       - loadbalancer
 
-  # *** ADD THESE LINES FOR PI-HOLE DNS ***
-  - port: 53:53/udp
+  - port: 53:30053/udp
     nodeFilters:
       - loadbalancer
       
-  - port: 53:53/tcp
+  - port: 53:30053/tcp
     nodeFilters:
       - loadbalancer

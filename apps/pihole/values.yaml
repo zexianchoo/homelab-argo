@@ -1,8 +1,16 @@
 # pihole-values.yaml
-# Use a LoadBalancer to expose the DNS ports (53) and the web UI (80)
-# to your home network via your server's IP address.
 service:
-  type: LoadBalancer
+  type: NodePort
+  # You can optionally specify the nodePorts here if you want them to be fixed.
+  # Otherwise, Kubernetes will assign a random high-numbered port.
+  # Let's fix them for predictability.
+  nodePorts:
+    http: 30080 # We will access the UI through Traefik instead.
+    dns-tcp: 30053
+    dns-udp: 30053
+  dns:
+    loadBalancerIP: "" # Not needed for NodePort
+  # ... other service settings
 
 # --- IMPORTANT: Set Your Admin Password ---
 # Change this to a strong, unique password for the Pi-hole web dashboard.
@@ -18,17 +26,4 @@ persistence:
 
 # Configure the Traefik IngressRoute for the dashboard.
 ingress:
-  enabled: true
-  # We specify that we are using Traefik.
-  ingressClassName: traefik
-  hosts:
-    # Change 'yourdomain.com' to your actual domain.
-    - host: pihole.internal.seanchoo.top
-      paths:
-        - path: /
-          pathType: Prefix
-  # TLS configuration for the IngressRoute.
-  tls:
-    - secretName: pihole-internal-tls
-      hosts:
-        - pihole.internal.seanchoo.top
+  enabled: false

@@ -16,9 +16,8 @@
 
 # k3d:
 ```
-k3d cluster create homelab --config k3d-config.yaml --k3s-arg "--disable=traefik@server:*"
-terragrunt apply
-kubectl apply -n argocd -f argocd-repo-secret.yaml
+k3d cluster create homelab --config k3d-config.yaml 
+tilt up
 ```
 
 
