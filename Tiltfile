@@ -80,9 +80,9 @@ k8s_resource(
 )
 k8s_yaml('manifests/certs/cloudflare.yaml')
 
-pihole_password = secret_yaml_generic(
-  'pihole-creds',
-  from_env_file='.env.pihole',
-  namespace='dns'
-)
-k8s_yaml(pihole_password)
+# pihole_password = secret_yaml_generic(
+#   'pihole-creds',
+#   from_env_file='.env.pihole',
+#   namespace='dns'
+# )
+# k8s_yaml(pihole_password)
