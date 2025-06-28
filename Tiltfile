@@ -28,7 +28,7 @@ helm_resource(
   'cert-manager',
   chart='jetstack/cert-manager',
   namespace='cert-manager',
-  flags=['--version=1.16.1', '-f', 'argocd/cert-manager-values.yaml'],
+  flags=['--version=1.16.1', '--set', 'installCRDs=true'],
   resource_deps=['namespace'],
   labels=['baseline'],
 )
@@ -53,12 +53,21 @@ k8s_resource(
   labels=['baseline'],
 )
 
+k8s_yaml('argocd/ingress.yaml')
+k8s_yaml('argocd/argocd-repo-secret.yaml')
+k8s_resource(
+  objects=["letsencrypt-staging-cloudflare:ClusterIssuer", "argocd-server:IngressRoute", "argo-server-cert:Certificate", "cloudflare-api-token-secret:Secret"],
+  new_name='cluster-tls',
+  resource_deps=['namespace', 'cert-manager'],
+  labels=['tls'],
+)
+
 helm_resource(
   'argo-cd',
   chart='argo/argo-cd',
   namespace='argocd',
   flags=['--version=7.7.5', '-f', 'argocd/values.yaml'],
-  resource_deps=['namespace', 'argo-gh-creds'],
+  resource_deps=['namespace', 'argo-gh-creds', 'cluster-tls'],
   labels=['baseline'],
 )
 
@@ -67,7 +76,7 @@ helm_resource(
   chart='argo/argo-rollouts',
   namespace='argocd',
   flags=['--version=2.39.1'],
-  resource_deps=['namespace'],
+  resource_deps=['namespace', 'argo-gh-creds', 'cluster-tls'],
   labels=['baseline'],
 )
 
@@ -76,6 +85,6 @@ k8s_yaml('argocd/homelab-root.yaml')
 k8s_resource(
   objects=['homelab-root:application'],
   new_name='homelab-root',
-  resource_deps=['namespace', 'argo-cd'],
+  resource_deps=['namespace', 'argo-cd', 'cert-manager'],
   labels=['baseline'],
 )
