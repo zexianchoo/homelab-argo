@@ -11,4 +11,4 @@
 #       kind: Rule
 #       services:
 #         - name: pihole-web  # This is the default service name created by the Helm chart
-#           port: 80
+#           port: 80  
