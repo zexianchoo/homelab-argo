@@ -5,8 +5,9 @@ dex:
 
 server:
   service:
-    type: NodePort
-    nodePortHttp: 31443
+    type: NodePort #might be nodeport
+    nodePortHttp: 30080
+    nodePortHttps: 30443
   ingress:
     enabled: true
     hosts:
