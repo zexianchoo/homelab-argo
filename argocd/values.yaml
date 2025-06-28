@@ -5,11 +5,11 @@ dex:
 
 server:
   service:
-    type: NodePort #might be nodeport
+    type: NodePort 
     nodePortHttp: 30080
-    nodePortHttps: 30443
+    nodePortHttps: 31443
   ingress:
-    enabled: true
+    enabled: false
     hosts:
       - host: argocd.seanchoo.top
     tls: true
