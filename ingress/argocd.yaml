@@ -1,5 +1,0 @@
-hostname: "argo.seanchoo.top"
-serviceName: "argocd-server"
-servicePort: 31443
-namespace: "argocd"
-scheme: "https" # ArgoCD needs https backend

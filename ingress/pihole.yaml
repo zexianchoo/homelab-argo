@@ -1,5 +1,0 @@
-hostname: "pihole.seanchoo.top"
-serviceName: "pihole-web"
-servicePort: 80
-namespace: "pihole"
-scheme: "http"

@@ -16,8 +16,6 @@ spec:
           apiTokenSecretRef:
             name: cloudflare-api-token-secret 
             key: api-token 
-
-      
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute

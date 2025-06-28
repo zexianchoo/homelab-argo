@@ -3,3 +3,4 @@ argocd-repo-secret.yaml
 !.env.*.example
 cloudflare.yaml
 debug-tunnel/*
+argo-cd-untar/*

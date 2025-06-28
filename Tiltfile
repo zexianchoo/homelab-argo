@@ -71,6 +71,7 @@ helm_resource(
   labels=['baseline'],
 )
 
+# main root app
 k8s_yaml('argocd/homelab-root.yaml')
 k8s_resource(
   objects=['homelab-root:application'],
@@ -78,11 +79,3 @@ k8s_resource(
   resource_deps=['namespace', 'argo-cd'],
   labels=['baseline'],
 )
-k8s_yaml('manifests/certs/cloudflare.yaml')
-
-# pihole_password = secret_yaml_generic(
-#   'pihole-creds',
-#   from_env_file='.env.pihole',
-#   namespace='dns'
-# )
-# k8s_yaml(pihole_password)
