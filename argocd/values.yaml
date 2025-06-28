@@ -10,7 +10,7 @@ server:
   ingress:
     enabled: true
     hosts:
-      - host: argocd.seanchoo.topology
+      - host: argocd.seanchoo.top
     tls: true
 
 configs:
