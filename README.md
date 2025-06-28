@@ -17,7 +17,7 @@
 # k3d:
 ```
 k3d cluster create homelab --config k3d-config.yaml 
-tilt up
+tilt up --host 0.0.0.0
 ```
 
 
