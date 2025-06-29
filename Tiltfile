@@ -8,32 +8,43 @@ allow_k8s_contexts([
     'k3d'
 ])
 
+
 update_settings (max_parallel_updates = 5,  k8s_upsert_timeout_secs = 300)
 
-k8s_yaml('argocd/argocd-repo-secret.yaml')
-
-namespace_create('cert-manager')
-k8s_resource(
-  objects=['cert-manager:namespace'],
-  new_name='namespace',
-  labels=['baseline'],
-)
-
-# jic helm repo is not installed
+# repos
 helm_repo('jetstack', 'https://charts.jetstack.io')
 helm_repo('argo', 'https://argoproj.github.io/argo-helm')
 helm_repo('mojo2600', 'https://mojo2600.github.io/pihole-kubernetes/')
 
-# baseline resources
+# charts
+helm_resource(
+  'argo-cd',
+  chart='argo/argo-cd',
+  namespace='argocd',
+  flags=['--version=7.7.5', '-f', 'argocd/values.yaml', '--create-namespace'],
+  resource_deps=['cluster-tls'],
+  labels=['baseline'],
+)
+
 helm_resource(
   'cert-manager',
   chart='jetstack/cert-manager',
   namespace='cert-manager',
-  flags=['--version=1.16.1', '--set', 'installCRDs=true'],
-  resource_deps=['namespace'],
+  flags=['--version=1.16.1', '--set', 'installCRDs=true', '--create-namespace'],
+  resource_deps=[],
   labels=['baseline'],
 )
 
+helm_resource(
+  'argo-rollouts',
+  chart='argo/argo-rollouts',
+  namespace='argocd',
+  flags=['--version=2.39.1', '--create-namespace'],
+  resource_deps=['argo-cd'],
+  labels=['baseline'],
+)
+
+# secrets 
 argo_git_creds_yaml = secret_yaml_generic(
   'argo-gh-credentials',
   from_env_file='.env.gh',
@@ -46,39 +57,28 @@ if 'labels' not in argo_git_creds_yaml_obj['metadata']:
     argo_git_creds_yaml_obj['metadata']['labels'] = {}
 argo_git_creds_yaml_obj['metadata']['labels']['argocd.argoproj.io/secret-type'] = 'repository'
 k8s_yaml(encode_yaml_stream([argo_git_creds_yaml_obj]))
-
 k8s_resource(
   objects=['argo-gh-credentials:secret'],
   new_name='argo-gh-creds',
-  resource_deps=['namespace'],
+  resource_deps=['argo-cd'],
   labels=['baseline'],
 )
 
-k8s_yaml('argocd/ingress.yaml')
-
+k8s_yaml('argocd/argocd-server-secrets.yaml')
 k8s_resource(
-  objects=["letsencrypt-prod-cloudflare:ClusterIssuer", "argocd-server:IngressRoute", "argo-server-cert:Certificate", "cloudflare-api-token-secret:Secret"],
+  objects=['argocd-secret:Secret'],
+  new_name='argocd-server-secrets',
+  resource_deps=['argo-cd'],
+  labels=['baseline'],
+)
+
+# ingress
+k8s_yaml('argocd/ingress.yaml')
+k8s_resource(
+  objects=["argocd:namespace", "letsencrypt-prod-cloudflare:ClusterIssuer", "argocd-server:IngressRoute", "argo-server-cert:Certificate", "cloudflare-api-token-secret:Secret"],
   new_name='cluster-tls',
-  resource_deps=['namespace', 'cert-manager'],
-  labels=['tls'],
-)
-
-helm_resource(
-  'argo-cd',
-  chart='argo/argo-cd',
-  namespace='argocd',
-  flags=['--version=7.7.5', '-f', 'argocd/values.yaml'],
-  resource_deps=['namespace', 'argo-gh-creds', 'cluster-tls'],
-  labels=['baseline'],
-)
-
-helm_resource(
-  'argo-rollouts',
-  chart='argo/argo-rollouts',
-  namespace='argocd',
-  flags=['--version=2.39.1'],
-  resource_deps=['namespace', 'argo-gh-creds', 'cluster-tls'],
-  labels=['baseline'],
+  resource_deps=['cert-manager'],
+  labels=['ingress-tls'],
 )
 
 # main root app
@@ -86,6 +86,6 @@ k8s_yaml('argocd/homelab-root.yaml')
 k8s_resource(
   objects=['homelab-root:application'],
   new_name='homelab-root',
-  resource_deps=['namespace', 'argo-cd', 'cert-manager'],
+  resource_deps=['argo-cd', 'cert-manager'],
   labels=['baseline'],
 )

@@ -1,4 +1,4 @@
-argocd-repo-secret.yaml
+argocd-server-secrets.yaml
 .env.*
 !.env.*.example
 cloudflare.yaml
