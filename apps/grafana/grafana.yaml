@@ -10,7 +10,7 @@ spec:
   sources:
     - repoURL: https://github.com/zexianchoo/homelab-argo.git
       targetRevision: HEAD
-      path: apps/grafana
+      path: manifests/grafana
       ref: values
     
     - repoURL: https://grafana.github.io/helm-charts
@@ -18,7 +18,7 @@ spec:
       targetRevision: 9.2.3
       helm:
         valueFiles:
-          - $values/apps/grafana/values.yaml
+          - $values/manifests/grafana/values.yaml
 
   destination:
     server: 'https://kubernetes.default.svc'
@@ -30,23 +30,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-
----
-apiVersion: external-secrets.io/v1
-kind: ExternalSecret
-metadata:
-  name: grafana-admin-secret-new
-  namespace: grafana
-spec:
-  secretStoreRef:
-    name: azure-keyvault
-    kind: ClusterSecretStore
-  target:
-    name: grafana-admin-secret-new
-  data:
-    - secretKey: admin-user
-      remoteRef:
-        key: grafana-admin
-    - secretKey: GF_SECURITY_ADMIN_PASSWORD
-      remoteRef:
-        key: grafana-admin-password 

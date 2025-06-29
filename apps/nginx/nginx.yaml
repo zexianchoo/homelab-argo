@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/zexianchoo/homelab-argo.git
     targetRevision: HEAD
-    path: apps/nginx # Points to its own directory to find the manifests
+    path: manifests/nginx # Points to its own directory to find the manifests
 
   destination:
     server: 'https://kubernetes.default.svc'
