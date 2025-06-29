@@ -7,13 +7,17 @@ spec:
   project: default 
 
   source:
-    repoURL: https://grafana.github.io/helm-charts 
-    chart: grafana 
-    targetRevision: 9.2.9 
-
-    helm:
-      valueFiles:
-        - values.yaml 
+    - repoURL: https://grafana.github.io/helm-charts 
+      chart: grafana 
+      targetRevision: 9.2.9 
+    
+    - repoURL: https://github.com/zexianchoo/homelab-argo.git 
+      targetRevision: HEAD 
+      ref: local-repo
+    
+  helm:
+    valueFiles:
+      - $local-repo/apps/grafana/values.yaml 
 
   destination:
     server: 'https://kubernetes.default.svc' 
