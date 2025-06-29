@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: https://grafana.github.io/helm-charts
       chart: grafana
-      targetRevision: 9.2.9 # Consider using a more recent, stable version
+      targetRevision: 9.2.9 
       helm:
         valueFiles:
           - $values/apps/grafana/values.yaml

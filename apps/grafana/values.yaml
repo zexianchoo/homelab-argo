@@ -14,6 +14,7 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure 
     cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+    kubectl.kubernetes.io/last-applied-configuration: ""
 
   hosts:
     - grafana.seanchoo.top
