@@ -5,18 +5,17 @@ metadata:
   namespace: argocd 
 spec:
   project: default 
-
   sources:
-    - repoURL: https://github.com/zexianchoo/homelab-argo.git 
-      targetRevision: HEAD 
-      ref: local-repo
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: grafana
+      targetRevision: 9.2.9 # Consider using a more recent, stable version
+      helm:
+        valueFiles:
+          - $values/apps/grafana/values.yaml
 
-    - repoURL: https://grafana.github.io/helm-charts 
-      chart: grafana 
-      targetRevision: 9.2.9 
-  helm:
-    valueFiles:
-      - $local-repo/apps/grafana/values.yaml 
+    - repoURL: https://github.com/zexianchoo/homelab-argo.git
+      targetRevision: HEAD
+      ref: values
 
   destination:
     server: 'https://kubernetes.default.svc' 

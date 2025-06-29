@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       name: '{{path.basename}}'
-      namespace: homelab 
+      namespace: argocd
     spec:
       project: default
       source:
@@ -24,7 +24,7 @@ spec:
         path: '{{path}}'
       destination:
         server: 'https://kubernetes.default.svc'
-        namespace: argocd 
+        namespace: '{{path.basename}}'
 
       # Sync policy for the *generated Applications*
       syncPolicy:
