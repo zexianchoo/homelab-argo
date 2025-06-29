@@ -17,9 +17,8 @@ ingress:
 
   hosts:
     - host: grafana.seanchoo.top
-      paths:
-        - path: /
-          pathType: Prefix 
+  path: /
+  pathType: Prefix 
 
   tls:
     - hosts:
