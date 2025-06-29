@@ -9,10 +9,10 @@ spec:
   - git: 
       repoURL: https://github.com/zexianchoo/homelab-argo.git
       revision: HEAD
-      directories:
-      - path: apps/* 
+      files:
+      - path: apps/*/*.yaml
 
-  template: 
+  template:
     metadata:
       name: '{{path.basename}}'
       namespace: argocd
