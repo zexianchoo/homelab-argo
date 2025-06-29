@@ -2,14 +2,13 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer 
 metadata:
-  name: letsencrypt-staging-cloudflare
+  name: letsencrypt-prod-cloudflare
 spec:
   acme:
     email: choozexian@gmail.com
-    # server: https://acme-staging-v02.api.letsencrypt.org/directory
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-staging-account-key
+      name: letsencrypt-prod-account-key
     solvers:
     - dns01:
         cloudflare:
@@ -43,7 +42,7 @@ metadata:
 spec:
   secretName: argocd-server-tls
   issuerRef:
-    name: letsencrypt-staging-cloudflare
+    name: letsencrypt-prod-cloudflare
     kind: ClusterIssuer
   commonName: argo.seanchoo.top
   dnsNames:
