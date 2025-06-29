@@ -84,7 +84,7 @@ k8s_resource(
 # main root app
 k8s_yaml('argocd/homelab-root.yaml')
 k8s_resource(
-  objects=['homelab-root:application'],
+  objects=['homelab-root:ApplicationSet'],
   new_name='homelab-root',
   resource_deps=['argo-cd', 'cert-manager'],
   labels=['baseline'],

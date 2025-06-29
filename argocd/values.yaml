@@ -10,7 +10,7 @@ server:
     nodePortHttp: 30080
     nodePortHttps: 31443
   ingress:
-    enabled: false
+    enabled: true
     ingressClassName: "traefik"
     hostname: argocd.seanchoo.top
     annotations:
