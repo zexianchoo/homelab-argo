@@ -1,23 +1,35 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
   name: homelab-root
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/zexianchoo/homelab-argo.git
-    targetRevision: HEAD 
-    path: apps/         
-    directory:
-      recurse: true 
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: argocd 
+  generators:
+  - git: 
+      repoURL: https://github.com/zexianchoo/homelab-argo.git
+      revision: HEAD
+      directories:
+      - path: apps/* 
 
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+  template:
+    metadata:
+      name: '{{path.basename}}'
+      namespace: homelab 
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/zexianchoo/homelab-argo.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: argocd 
+
+      # Sync policy for the *generated Applications*
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
