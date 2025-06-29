@@ -81,6 +81,18 @@ spec:
         key: argocd-secret-key
         # refreshInterval: "1d"
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: argo-gh-credentials
+  namespace: argocd
+type: Opaque
+stringData:
+  url: https://github.com/zexianchoo/homelab-argo.git
+  username: zexianchoo
+---
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
@@ -92,9 +104,7 @@ spec:
     kind: ClusterSecretStore
   target:
     name: argo-gh-credentials
-    template:
-        repoUrl: https://github.com/zexianchoo/homelab-argo.git
-        username: zexianchoo
+    creationPolicy: 'Merge'
   data:
     - secretKey: password
       remoteRef:
