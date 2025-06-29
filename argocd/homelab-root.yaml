@@ -93,7 +93,6 @@ spec:
   target:
     name: argo-gh-credentials
     template:
-      stringData:
         repoUrl: https://github.com/zexianchoo/homelab-argo.git
         username: zexianchoo
   data:
