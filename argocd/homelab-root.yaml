@@ -6,16 +6,22 @@ metadata:
 spec:
   project: default
 
-  source:
-    repoURL: https://github.com/zexianchoo/homelab-argo.git
-    targetRevision: HEAD
-    path: apps 
-    directory:
-      recurse: true
+  sources:
+    - repoURL: https://github.com/zexianchoo/homelab-argo.git
+      targetRevision: HEAD
+      path: apps 
+      directory:
+        recurse: true
+
+    - repoURL: https://github.com/zexianchoo/homelab-argo.git
+      targetRevision: HEAD
+      path: manifests/homelab-root 
+      files:
+        - '*.yaml'
+
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: argocd
-
   syncPolicy:
     automated:
       prune: true
@@ -42,22 +48,6 @@ spec:
           name: azure-key-vault-credentials
           key: client_secret
           namespace: external-secrets       
----
-apiVersion: external-secrets.io/v1
-kind: ExternalSecret
-metadata:
-  name: cloudflare-api-token-secret
-  namespace: cert-manager
-spec:
-  secretStoreRef:
-    name: azure-keyvault
-    kind: ClusterSecretStore
-  target:
-    name: cloudflare-api-token-secret
-  data:
-    - secretKey: api-token
-      remoteRef:
-        key: cloudflare-api-token
 ---
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
