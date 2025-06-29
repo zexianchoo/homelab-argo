@@ -9,11 +9,12 @@ allow_k8s_contexts([
 ])
 
 update_settings (max_parallel_updates = 5,  k8s_upsert_timeout_secs = 300)
-namespace_create('cert-manager')
-namespace_create('argocd')
 
+k8s_yaml('argocd/argocd-repo-secret.yaml')
+
+namespace_create('cert-manager')
 k8s_resource(
-  objects=['cert-manager:namespace', 'argocd:namespace'],
+  objects=['cert-manager:namespace'],
   new_name='namespace',
   labels=['baseline'],
 )
@@ -54,7 +55,7 @@ k8s_resource(
 )
 
 k8s_yaml('argocd/ingress.yaml')
-k8s_yaml('argocd/argocd-repo-secret.yaml')
+
 k8s_resource(
   objects=["letsencrypt-prod-cloudflare:ClusterIssuer", "argocd-server:IngressRoute", "argo-server-cert:Certificate", "cloudflare-api-token-secret:Secret"],
   new_name='cluster-tls',
