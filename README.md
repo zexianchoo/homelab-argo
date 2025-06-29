@@ -18,7 +18,7 @@
 ```
 k3d cluster create homelab --config k3d-config.yaml 
 tilt up --host 0.0.0.0
+cloudflared tunnel --config debug-tunnel/debug-tunnel.yml run
 ```
-
 
 ip is 192.168.0.198
