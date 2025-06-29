@@ -36,7 +36,9 @@ spec:
       authSecretRef:
         clientId:
           name: azure-key-vault-credentials
-          key: client_id         
+          key: client_id
+          namespace: external-secrets         
         clientSecret:
           name: azure-key-vault-credentials
-          key: client_secret       
+          key: client_secret
+          namespace: external-secrets       
