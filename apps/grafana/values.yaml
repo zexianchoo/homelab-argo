@@ -1,0 +1,9 @@
+admin:
+  user: admin
+  existingSecret: grafana-admin-secret 
+  passwordKey: GF_SECURITY_ADMIN_PASSWORD
+
+# Service configuration
+service:
+  type: ClusterIP # Or LoadBalancer, NodePort, etc.
+  port: 80
