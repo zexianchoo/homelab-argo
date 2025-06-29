@@ -6,4 +6,4 @@ admin:
 # Service configuration
 service:
   type: ClusterIP # Or LoadBalancer, NodePort, etc.
-  port: 80
+  port: 80  
