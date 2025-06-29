@@ -16,6 +16,7 @@ spec:
     - repoURL: https://github.com/zexianchoo/homelab-argo.git
       targetRevision: HEAD
       ref: values
+      path: manifests/grafana
 
   destination:
     server: 'https://kubernetes.default.svc' 
