@@ -16,11 +16,9 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
 
   hosts:
-    - host: grafana.seanchoo.top
-  path: /
-  pathType: Prefix 
+    - grafana.seanchoo.top
 
   tls:
-    - hosts:
+    - secretName: grafana-tls-secret 
+      hosts:
         - grafana.seanchoo.top 
-      secretName: grafana-tls-secret 
