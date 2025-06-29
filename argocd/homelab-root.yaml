@@ -80,3 +80,24 @@ spec:
       remoteRef:
         key: argocd-secret-key
         # refreshInterval: "1d"
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: argo-gh-credentials
+  namespace: argocd
+spec:
+  secretStoreRef:
+    name: azure-keyvault
+    kind: ClusterSecretStore
+  target:
+    name: argo-gh-credentials
+    template:
+      stringData:
+        repoUrl: https://github.com/zexianchoo/homelab-argo.git
+        username: zexianchoo
+  data:
+    - secretKey: password
+      remoteRef:
+        key: github-pat
+        # refreshInterval: "1d"
