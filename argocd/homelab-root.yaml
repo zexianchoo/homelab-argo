@@ -57,7 +57,7 @@ spec:
   data:
     - secretKey: api-token
       remoteRef:
-        key: 
+        key: cloudflare-api-token
         # refreshInterval: "1d"
 ---
 apiVersion: external-secrets.io/v1
