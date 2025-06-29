@@ -10,7 +10,7 @@ spec:
       repoURL: https://github.com/zexianchoo/homelab-argo.git
       revision: HEAD
       files:
-      - path: apps/*/*.yaml
+      - path: apps/*/app.yaml
 
   template:
     metadata:
