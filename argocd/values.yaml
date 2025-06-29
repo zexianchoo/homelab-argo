@@ -11,13 +11,11 @@ server:
     nodePortHttps: 31443
   ingress:
     enabled: true
-    ingressClassName: "traefik"
+    ingressClassName: traefik
     hostname: argo.seanchoo.top
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure 
       cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
-    hosts:
-      - host: argo.seanchoo.top
     extraHosts: 
       - name: argofixed.seanchoo.top
         path: /
