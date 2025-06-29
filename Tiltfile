@@ -15,6 +15,7 @@ update_settings (max_parallel_updates = 5,  k8s_upsert_timeout_secs = 300)
 helm_repo('jetstack', 'https://charts.jetstack.io')
 helm_repo('argo', 'https://argoproj.github.io/argo-helm')
 helm_repo('mojo2600', 'https://mojo2600.github.io/pihole-kubernetes/')
+helm_repo('external-secrets-operator', 'https://charts.external-secrets.io/')
 
 # charts
 helm_resource(
@@ -44,6 +45,15 @@ helm_resource(
   labels=['baseline'],
 )
 
+helm_resource(
+  'eso',
+  chart='external-secrets-operator/external-secrets',
+  namespace='external-secrets',
+  flags=['--version=0.18.0', '--set', 'installCRDs=true',  '--create-namespace'],
+  resource_deps=['cluster-tls'],
+  labels=['baseline'],
+)
+
 # secrets 
 argo_git_creds_yaml = secret_yaml_generic(
   'argo-gh-credentials',
@@ -69,6 +79,13 @@ k8s_resource(
   objects=['argocd-secret:Secret'],
   new_name='argocd-server-secrets',
   resource_deps=['argo-cd'],
+  labels=['baseline'],
+)
+
+k8s_resource(
+  objects=['azure-key-vault-credentials', 'azure-keyvault:clustersecretstore'],
+  new_name='external-secrets',
+  resource_deps=[],
   labels=['baseline'],
 )
 

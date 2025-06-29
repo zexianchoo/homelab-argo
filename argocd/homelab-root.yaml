@@ -22,3 +22,21 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true  
+---
+apiVersion: external-secrets.io/v1
+kind: ClusterSecretStore
+metadata:
+  name: azure-keyvault 
+  namespace: external-secrets
+spec:
+  provider:
+    azurekv:
+      vaultUrl: https://homelab-key-vault.vault.azure.net/
+      tenantId: af8036c0-68ca-4751-bb29-7d6db996bdd1
+      authSecretRef:
+        clientId:
+          name: azure-key-vault-credentials
+          key: client_id         
+        clientSecret:
+          name: azure-key-vault-credentials
+          key: client_secret       
