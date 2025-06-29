@@ -58,7 +58,6 @@ spec:
     - secretKey: api-token
       remoteRef:
         key: cloudflare-api-token
-        # refreshInterval: "1d"
 ---
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
@@ -75,11 +74,9 @@ spec:
     - secretKey: admin.password
       remoteRef:
         key: argocd-admin-password
-        # refreshInterval: "1d"
     - secretKey: server.secretkey
       remoteRef:
         key: argocd-secret-key
-        # refreshInterval: "1d"
 ---
 apiVersion: v1
 kind: Secret
@@ -109,4 +106,3 @@ spec:
     - secretKey: password
       remoteRef:
         key: github-pat
-        # refreshInterval: "1d"
