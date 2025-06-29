@@ -75,7 +75,7 @@ k8s_resource(
 # ingress
 k8s_yaml('argocd/ingress.yaml')
 k8s_resource(
-  objects=["argocd:namespace", "letsencrypt-prod-cloudflare:ClusterIssuer", "argocd-server:IngressRoute", "argo-server-cert:Certificate", "cloudflare-api-token-secret:Secret"],
+  objects=["argocd:namespace", "letsencrypt-prod-cloudflare:ClusterIssuer", "cloudflare-api-token-secret:Secret"],
   new_name='cluster-tls',
   resource_deps=['cert-manager'],
   labels=['ingress-tls'],

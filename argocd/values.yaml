@@ -12,11 +12,15 @@ server:
   ingress:
     enabled: true
     ingressClassName: "traefik"
-    hostname: argocd.seanchoo.top
+    hostname: argo.seanchoo.top
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure 
       cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
     hosts:
-      - host: argocd.seanchoo.top
+      - host: argo.seanchoo.top
+    extraHosts: 
+      - name: argofixed.seanchoo.top
+        path: /
+
     tls: true
 

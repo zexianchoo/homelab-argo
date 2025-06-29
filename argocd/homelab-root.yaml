@@ -26,7 +26,6 @@ spec:
         server: 'https://kubernetes.default.svc'
         namespace: '{{path.basename}}'
 
-      # Sync policy for the *generated Applications*
       syncPolicy:
         automated:
           prune: true
