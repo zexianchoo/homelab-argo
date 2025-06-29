@@ -42,3 +42,41 @@ spec:
           name: azure-key-vault-credentials
           key: client_secret
           namespace: external-secrets       
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: cloudflare-api-token-secret
+  namespace: cert-manager
+spec:
+  secretStoreRef:
+    name: azure-keyvault
+    kind: ClusterSecretStore
+  target:
+    name: cloudflare-api-token-secret
+  data:
+    - secretKey: api-token
+      remoteRef:
+        key: 
+        # refreshInterval: "1d"
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: argocd-secret
+  namespace: argocd
+spec:
+  secretStoreRef:
+    name: azure-keyvault
+    kind: ClusterSecretStore
+  target:
+    name: argocd-secret
+  data:
+    - secretKey: admin.password
+      remoteRef:
+        key: argocd-admin-password
+        # refreshInterval: "1d"
+    - secretKey: server.secretkey
+      remoteRef:
+        key: argocd-secret-key
+        # refreshInterval: "1d"
