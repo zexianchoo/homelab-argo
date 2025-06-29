@@ -1,32 +1,25 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: grafana-admin-secret
-  namespace: grafana 
-type: Opaque
-stringData:
-  admin-user: admin
-  GF_SECURITY_ADMIN_PASSWORD: hihihi
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: grafana-secrets
+  name: nginx
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
+
   source:
     repoURL: https://github.com/zexianchoo/homelab-argo.git
     targetRevision: HEAD
-    path: apps/grafana/secrets
+    path: apps/nginx # Points to its own directory to find the manifests
+
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: grafana
+    namespace: nginx
+
   syncPolicy:
-    automated: # etc...
+    automated:
       prune: true
       selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
+    syncOptions:
+      - CreateNamespace=true
