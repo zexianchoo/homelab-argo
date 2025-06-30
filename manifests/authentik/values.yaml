@@ -29,16 +29,12 @@ postgresql:
   enabled: true
   auth:
     password: "ThisIsNotASecurePassword"
-
+  persistence:
+    enable: true
+    size: 500Mi
 redis:
   enabled: true
-
-primary:
-  persistence:
-    enable: true
-    size: 500Mi
-
-readReplicas:
-  persistence:
-    enable: true
-    size: 500Mi
+  readReplicas:
+    persistence:
+      enable: true
+      size: 500Mi
