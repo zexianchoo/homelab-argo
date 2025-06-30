@@ -2,5 +2,4 @@ argocd-server-secrets.yaml
 .env.*
 !.env.*.example
 cloudflare.yaml
-debug-tunnel/*
 argo-cd-untar/*
