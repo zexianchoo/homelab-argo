@@ -13,11 +13,14 @@ server:
     enabled: true
     hosts:
         - authentik.seanchoo.top
+    ingressClassName: traefik
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure 
       cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
-    ingressClassName: traefik
-
+    tls:
+      - secretName: authentik-tls-secret
+        hosts:
+          - authentik.seanchoo.top
 # prometheus:
 #   rules:
 #     enabled: true
