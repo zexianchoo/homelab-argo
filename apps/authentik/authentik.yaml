@@ -15,7 +15,7 @@ spec:
     
     - repoURL: https://charts.goauthentik.io/
       chart: goauthentik
-      targetRevision: 0.10.0
+      targetRevision: 2025.6.3
       helm:
         valueFiles:
           - $values/manifests/authentik/values.yaml
