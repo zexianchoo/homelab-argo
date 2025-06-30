@@ -54,7 +54,6 @@ helm_resource(
   labels=['baseline'],
 )
 
-
 k8s_yaml('argocd/argocd-server-secrets.yaml')
 k8s_resource(
   objects=['azure-key-vault-credentials', 'azure-keyvault:clustersecretstore'],
