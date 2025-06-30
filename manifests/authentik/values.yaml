@@ -4,10 +4,10 @@ authentik:
     password: "ThisIsNotASecurePassword"
 
 server:
-  service:
-    annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure 
-      cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+  # service:
+  #   annotations:
+  #     traefik.ingress.kubernetes.io/router.entrypoints: websecure 
+  #     cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
 
   ingress:
     enabled: true
