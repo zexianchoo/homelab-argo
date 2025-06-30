@@ -26,6 +26,9 @@ ingress:
       hosts:
         - grafana.seanchoo.top 
 
-grafana.ini:
-  server:
-    root_url: https://grafana.seanchoo.top
+persistence:
+  type: pvc
+  enabled: true
+  size: 200Mi
+  finalizers:
+    - kubernetes.io/pvc-protection
