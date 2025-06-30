@@ -25,3 +25,7 @@ ingress:
     - secretName: grafana-tls-secret 
       hosts:
         - grafana.seanchoo.top 
+
+grafana.ini:
+  server:
+    root_url: https://grafana.seanchoo.top
