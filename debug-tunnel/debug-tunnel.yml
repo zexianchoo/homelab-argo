@@ -20,9 +20,9 @@ ingress:
     originRequest:
       originServerName: grafana.seanchoo.top
 
-  - hostname: auth.seanchoo.top
+  - hostname: authentik.seanchoo.top
     service: https://localhost:443
     originRequest:
-      originServerName: auth.seanchoo.top
+      originServerName: authentik.seanchoo.top
 
   - service: http_status:404

@@ -12,7 +12,7 @@ server:
   ingress:
     enabled: true
     hosts:
-        - auth.seanchoo.top
+        - authentik.seanchoo.top
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure 
       cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
