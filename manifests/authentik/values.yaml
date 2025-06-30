@@ -1,0 +1,29 @@
+authentik:
+  secret_key: "PleaseGenerateA50CharKey"
+  postgresql:
+    password: "ThisIsNotASecurePassword"
+
+service:
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure 
+    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+
+ingress:
+  enabled: true
+  hosts:
+      - auth.seanchoo.top
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure 
+    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+
+prometheus:
+  rules:
+    enabled: true
+
+postgresql:
+  enabled: true
+  auth:
+    password: "ThisIsNotASecurePassword"
+
+redis:
+  enabled: true
