@@ -3,18 +3,19 @@ authentik:
   postgresql:
     password: "ThisIsNotASecurePassword"
 
-service:
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure 
-    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+server:
+  service:
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure 
+      cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
 
-ingress:
-  enabled: true
-  hosts:
-      - auth.seanchoo.top
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure 
-    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+  ingress:
+    enabled: true
+    hosts:
+        - auth.seanchoo.top
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure 
+      cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
 
 prometheus:
   rules:
