@@ -17,9 +17,9 @@ server:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure 
       cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
 
-prometheus:
-  rules:
-    enabled: true
+# prometheus:
+#   rules:
+#     enabled: true
 
 postgresql:
   enabled: true
