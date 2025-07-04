@@ -12,7 +12,6 @@ spec:
       targetRevision: HEAD
       path: manifests/authentik
       ref: values
-    w
     - repoURL: https://charts.goauthentik.io/
       chart: authentik
       targetRevision: 2025.6.3
