@@ -1,28 +1,27 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: authentik
+  name: immich
+  labels:
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   sources:
     - repoURL: https://github.com/zexianchoo/homelab-argo.git
       targetRevision: HEAD
-      path: manifests/authentik
+      path: manifests/immich
       ref: values
-    w
-    - repoURL: https://charts.goauthentik.io/
-      chart: authentik
-      targetRevision: 2025.6.3
+    
+    - repoURL: oci://ghcr.io/immich-app/immich-charts/immich
+      chart: immich
+      targetRevision: 0.9.3
       helm:
         valueFiles:
-          - $values/manifests/authentik/values.yaml
+          - $values/manifests/immich/values.yaml
 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: default
+    namespace: immich
 
   syncPolicy:
     automated:
@@ -30,3 +29,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+
