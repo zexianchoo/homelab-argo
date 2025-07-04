@@ -4,11 +4,6 @@ authentik:
     password: "ThisIsNotASecurePassword"
 
 server:
-  service:
-    annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure 
-      cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
-
   ingress:
     enabled: true
     hosts:
@@ -21,14 +16,15 @@ server:
       - secretName: authentik-tls-secret
         hosts:
           - authentik.seanchoo.top
+
 # prometheus:
 #   rules:
-#     enabled: true
+    # enabled: true
 
 postgresql:
   enabled: true
-  auth:
-    password: "ThisIsNotASecurePassword"
+  # auth:
+  #   password: "ThisIsNotASecurePassword"
   primary:
     persistence:
       enable: true
