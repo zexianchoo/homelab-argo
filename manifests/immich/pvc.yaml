@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: immich-library-claim 
+  name: immich-library-pvc
   namespace: immich
 finalizers:
   - kubernetes.io/pv-protection
@@ -10,5 +10,5 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 10Gi 
+      storage: 2Gi 
   storageClassName: local-path

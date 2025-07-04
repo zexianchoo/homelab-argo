@@ -49,7 +49,7 @@ immich:
   persistence:
     library:
       enabled: true
-      existingClaim: immich-library-claim
+      existingClaim: immich-library-pvc
 
 redis:
   enabled: true
