@@ -74,15 +74,15 @@ machine-learning:
       type: pvc
       accessMode: ReadWriteMany
     
-postgresql:
-  enabled: true
-  auth:
-    password: "ThisIsNotASecurePassword"
-  primary:
-    persistence:
-      enable: true
-      size: 500Mi
-  readReplicas:
-    persistence:
-      enable: true
-      size: 500Mi
+# postgresql:
+#   enabled: true
+#   auth:
+#     password: "ThisIsNotASecurePassword"
+#   primary:
+#     persistence:
+#       enable: true
+#       size: 500Mi
+#   readReplicas:
+#     persistence:
+#       enable: true
+#       size: 500Mi
