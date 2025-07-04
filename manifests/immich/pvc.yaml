@@ -3,10 +3,12 @@ kind: PersistentVolumeClaim
 metadata:
   name: immich-library-claim 
   namespace: immich
+finalizers:
+  - kubernetes.io/pv-protection
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 5Gi 
+      storage: 10Gi 
   storageClassName: local-path
