@@ -1,0 +1,42 @@
+# grafana:
+  # ingress:
+  #   enabled: true
+  #   ingressClassName: traefik 
+  #   annotations:
+  #     traefik.ingress.kubernetes.io/router.entrypoints: websecure 
+  #     cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+
+  # defaultDashboardsTimezone: PDT
+
+  # persistence:
+  #   type: pvc
+  #   enabled: true
+  #   size: 200Mi
+  #   finalizers:
+  #     - kubernetes.io/pvc-protection
+
+prometheus:
+
+  ingress:
+    enabled: false
+    ingressClassName: ""
+    annotations: {}
+    labels: {}
+    hosts: []
+
+    ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
+    ##
+    paths: []
+    # - /
+
+    ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
+    ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
+    # pathType: ImplementationSpecific
+
+    ## TLS configuration for Prometheus Ingress
+    ## Secret must be manually created in the namespace
+    ##
+    tls: []
+      # - secretName: prometheus-general-tls
+      #   hosts:
+      #     - prometheus.example.com
