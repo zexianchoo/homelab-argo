@@ -25,4 +25,18 @@ ingress:
     originRequest:
       originServerName: authentik.seanchoo.top
 
+  - hostname: immich.seanchoo.top
+    service: https://localhost:443
+    originRequest:
+      originServerName: immich.seanchoo.top
+
+  - hostname: grafana.seanchoo.top
+    service: https://localhost:443
+    originRequest:
+      originServerName: grafana.seanchoo.top
+
+  - hostname: prometheus.seanchoo.top
+    service: https://localhost:443
+    originRequest:
+      originServerName: prometheus.seanchoo.top
   - service: http_status:404
