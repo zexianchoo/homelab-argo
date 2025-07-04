@@ -4,7 +4,7 @@ replicaCount: 1
 # Generate a secret using openssl rand -base64 45
 secretkey: TcbN4vgY95hTpQgFL2jZ8kop+zE4cpYLk3MYfBFoVOXbDxQkcfIQYytAqtRA
 
-image:
+# image:
   # tag: "1.26.2"
 
 existingAdminCredsSecret: planka-admin-creds
