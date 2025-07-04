@@ -9,6 +9,13 @@ image:
 # existingAdminCredsSecret: planka-admin-creds
 baseUrl: "planka.seanchoo.top"
 
+
+admin_email: "demo@demo.demo"
+admin_password: "demo"
+admin_name: "Demo Demo"
+admin_username: "demo"
+
+
 ingress:
   enabled: true
   className: traefik
