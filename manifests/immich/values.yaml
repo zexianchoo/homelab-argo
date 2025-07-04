@@ -26,7 +26,6 @@ common:
   #   enabled: true
 
 
-
   # persistence:
   #   config:
   #     enabled: true
@@ -45,6 +44,10 @@ server:
 immich:
   metrics:
     enabled: true
+  persistence:
+    library:
+      enabled: true
+      existingClaim: immich-library-claim
 
 redis:
   enabled: true
@@ -61,7 +64,7 @@ machine-learning:
     TRANSFORMERS_CACHE: /cache
   persistence:
     cache:
-      enabled: false
+      enabled: true
       size: 2Gi
-      type: emptyDir
+      type: pvc
       accessMode: ReadWriteMany
