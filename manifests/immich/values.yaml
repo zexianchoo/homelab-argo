@@ -40,7 +40,7 @@ server:
         cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
       ingressClassName: traefik
       hosts:
-        host: immich.seanchoo.top
+        - host: immich.seanchoo.top
 
 immich:
   metrics:
