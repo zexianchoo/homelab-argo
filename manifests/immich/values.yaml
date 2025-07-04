@@ -1,40 +1,67 @@
-serviceAccount:
-  create: true
+common:
+  serviceAccount:
+    create: true
 
-env:
-  - name: TZ
-    value: US/PDT
-  - name: PASSWD
-    valueFrom:
-      secretKeyRef:
-        name: secret-name
-        key: key-name
-hostname: immich.seanchoo.top
+  env:
+    - name: TZ
+      value: US/PDT
+    - name: PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: secret-name
+          key: key-name
+  hostname: immich.seanchoo.top
 
-service:
-  main:
-    ports:
-      http:
-        primary: false
-      https:
-        enabled: true
-        primary: true
-        protocol: HTTPS
+  # service:
+  #   main:
+  #     ports:
+  #       http:
+  #         primary: false
+  #       https:
+  #         enabled: true
+  #         primary: true
+  #         protocol: HTTPS
 
-serviceMonitor:
+  # serviceMonitor:
+  #   enabled: true
+
+
+
+  # persistence:
+  #   config:
+  #     enabled: true
+  #     size: 200Mi
+server:
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure 
+        cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+      ingressClassName: traefik
+      hosts:
+        host: immich.seanchoo.top
+
+immich:
+  metrics:
+    enabled: true
+
+redis:
   enabled: true
-
-ingress:
-  main:
+  architecture: standalone
+  auth:
     enabled: true
-    annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure 
-      cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
-    ingressClassName: traefik
-    hosts:
-      host: immich.seanchoo.top
 
-persistence:
-  config:
-    enabled: true
-    size: 200Mi
+machine-learning:
+  enabled: true
+  image:
+    repository: ghcr.io/immich-app/immich-machine-learning
+    pullPolicy: IfNotPresent
+  env:
+    TRANSFORMERS_CACHE: /cache
+  persistence:
+    cache:
+      enabled: true
+      size: 2Gi
+      type: pvc
+      accessMode: ReadWriteMany

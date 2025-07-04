@@ -12,7 +12,7 @@ spec:
       path: manifests/immich
       ref: values
     
-    - repoURL: oci://ghcr.io/immich-app/immich-charts/immich
+    - repoURL: https://immich-app.github.io/immich-charts
       chart: immich
       targetRevision: 0.9.3
       helm:
