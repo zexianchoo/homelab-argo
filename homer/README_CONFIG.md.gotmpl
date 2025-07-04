@@ -1,0 +1,13 @@
+{{- define "custom.custom.notes" -}}
+Chart taken from k8s-at-home repo [here](https://github.com/k8s-at-home/charts/tree/master/charts/incubator/homer).
+{{- end -}}
+
+{{- define "custom.custom.configuration.header" -}}
+## Custom configuration
+{{- end -}}
+
+{{- define "custom.custom.configuration" -}}
+{{ template "custom.custom.configuration.header" . }}
+
+N/A
+{{- end -}}

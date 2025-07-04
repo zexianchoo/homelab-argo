@@ -1,0 +1,40 @@
+image:
+  repository: b4bz/homer
+  tag: v25.05.2
+  pullPolicy: IfNotPresent
+
+env:
+  TZ: US/PDT
+
+service:
+  main:
+    ports:
+      http:
+        port: 8080
+
+ingress:
+  main:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+      - host: seanchoo
+        paths:
+            path: /
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure 
+      cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+    tls:
+      - secretName: homer-db-tls
+        hosts:
+          - seanchoo.top
+persistence:
+  config:
+    enabled: false
+    mountPath: /www/assets
+
+configmap:
+  config:
+    enabled: true
+    data:
+      config.yml: |
+        externalConfig: https://raw.githubusercontent.com/bastienwirtz/homer/main/public/assets/config.yml.dist
