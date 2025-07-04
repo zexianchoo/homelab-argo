@@ -1,32 +1,32 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: immich
-#   labels:
-#   namespace: argocd
-# spec:
-#   project: default
-#   sources:
-#     - repoURL: https://github.com/zexianchoo/homelab-argo.git
-#       targetRevision: HEAD
-#       path: manifests/immich
-#       ref: values
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: immich
+  labels:
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/zexianchoo/homelab-argo.git
+      targetRevision: HEAD
+      path: manifests/immich
+      ref: values
     
-#     - repoURL: https://immich-app.github.io/immich-charts
-#       chart: immich
-#       targetRevision: 0.9.3
-#       helm:
-#         valueFiles:
-#           - $values/manifests/immich/values.yaml
+    - repoURL: https://immich-app.github.io/immich-charts
+      chart: immich
+      targetRevision: 0.9.3
+      helm:
+        valueFiles:
+          - $values/manifests/immich/values.yaml
 
-#   destination:
-#     server: 'https://kubernetes.default.svc'
-#     namespace: immich
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: immich
 
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - CreateNamespace=true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
 
