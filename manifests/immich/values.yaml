@@ -61,7 +61,7 @@ machine-learning:
     TRANSFORMERS_CACHE: /cache
   persistence:
     cache:
-      enabled: true
+      enabled: false
       size: 2Gi
       type: emptyDir
       accessMode: ReadWriteMany
