@@ -63,5 +63,5 @@ machine-learning:
     cache:
       enabled: true
       size: 2Gi
-      type: pvc
+      type: emptyDir
       accessMode: ReadWriteMany
