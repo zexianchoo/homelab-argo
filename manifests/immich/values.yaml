@@ -56,6 +56,9 @@ redis:
   architecture: standalone
   auth:
     enabled: true
+  master:
+    persistence:
+      size: 500Mi
 
 machine-learning:
   enabled: true
@@ -70,3 +73,16 @@ machine-learning:
       size: 2Gi
       type: pvc
       accessMode: ReadWriteMany
+    
+postgresql:
+  enabled: true
+  auth:
+    password: "ThisIsNotASecurePassword"
+  primary:
+    persistence:
+      enable: true
+      size: 500Mi
+  readReplicas:
+    persistence:
+      enable: true
+      size: 500Mi
