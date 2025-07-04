@@ -6,7 +6,7 @@ secretkey: TcbN4vgY95hTpQgFL2jZ8kop+zE4cpYLk3MYfBFoVOXbDxQkcfIQYytAqtRA
 image:
   tag: "1.26.2"
 
-existingAdminCredsSecret: planka-admin-creds
+# existingAdminCredsSecret: planka-admin-creds
 baseUrl: "planka.seanchoo.top"
 
 ingress:
