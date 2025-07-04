@@ -12,22 +12,21 @@ service:
       http:
         port: 8080
 
-common:
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: traefik
-      hosts:
-        - host: seanchoo
-          paths:
-              path: /
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure 
-        cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
-      tls:
-        - secretName: homer-db-tls
-          hosts:
-            - seanchoo.top
+ingress:
+  main:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+      - host: seanchoo.top
+        paths:
+            path: /
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure 
+      cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+    tls:
+      - secretName: homer-db-tls
+        hosts:
+          - seanchoo.top
 persistence:
   config:
     enabled: false
