@@ -1,4 +1,10 @@
 grafana:
+  adminPassword: ""
+  admin:
+    user: admin
+    existingSecret: grafana-admin-secret 
+    passwordKey: GF_SECURITY_ADMIN_PASSWORD
+
   ingress:
     enabled: true
     ingressClassName: traefik 
@@ -15,7 +21,8 @@ grafana:
         - grafana.seanchoo.top
   defaultDashboardsTimezone: PDT
   persistence:
-    enabled: true
+    # enabled: true
+    enabled: false
     type: sts
     storageClassName: "local-path"
     accessModes:
@@ -23,10 +30,6 @@ grafana:
     size: 200Mi
     finalizers:
       - kubernetes.io/pvc-protection
-  admin:
-    user: admin
-    existingSecret: grafana-admin-secret 
-    passwordKey: GF_SECURITY_ADMIN_PASSWORD
     
   env:
     GF_SERVER_ROOT_URL: https://grafana.seanchoo.top
