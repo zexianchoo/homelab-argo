@@ -39,6 +39,7 @@ ingress:
 
 erlangFlags:
   setcookie: 74a4873dc580eef6f68a3fdd4c55501e79aaf70987d34d6125d3771c683e106d
+  
 prometheusPort:
   enabled: true
 
