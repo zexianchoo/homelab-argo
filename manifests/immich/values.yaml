@@ -5,12 +5,12 @@ common:
   env:
     - name: TZ
       value: US/PDT
-    - name: PASSWD
-      valueFrom:
-        secretKeyRef:
-          name: secret-name
-          key: key-name
-  hostname: immich.seanchoo.top
+    # - name: PASSWD
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: secret-name
+    #       key: key-name
+  hostname: immich
 
   # service:
   #   main:
