@@ -39,3 +39,7 @@ ingress:
 
 prometheusPort:
   enabled: true
+
+couchdbConfig:
+  couchdb:
+   uuid: edf62f47-7614-4097-8f69-44e0e7f6a9bc
