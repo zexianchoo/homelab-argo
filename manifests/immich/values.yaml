@@ -40,6 +40,8 @@ server:
       ingressClassName: traefik
       hosts:
         - host: immich.seanchoo.top
+          paths:
+            - path: "/"
 
 immich:
   metrics:
