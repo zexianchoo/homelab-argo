@@ -23,7 +23,14 @@ grafana:
     size: 200Mi
     finalizers:
       - kubernetes.io/pvc-protection
-
+  admin:
+    user: admin
+    existingSecret: grafana-admin-secret 
+    passwordKey: GF_SECURITY_ADMIN_PASSWORD
+    
+  env:
+    GF_SERVER_ROOT_URL: https://grafana.seanchoo.top
+    
 prometheus:
   ingress:
     enabled: true
