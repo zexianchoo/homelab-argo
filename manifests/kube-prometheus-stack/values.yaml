@@ -1,7 +1,7 @@
 grafana:
   ingress:
     enabled: true
-    ingressClassName: "traefik" 
+    ingressClassName: traefik 
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure 
       cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
@@ -19,7 +19,10 @@ grafana:
     size: 200Mi
     finalizers:
       - kubernetes.io/pvc-protection
-    
+    tls: 
+      - secretName: grafana-general-tls
+        hosts:
+        - grafana.seanchoo.top
 prometheus:
   ingress:
     enabled: true
@@ -31,3 +34,7 @@ prometheus:
       - prometheus.seanchoo.top
     paths: 
       - /
+    tls: 
+      - secretName: prometheus-general-tls
+        hosts:
+        - prometheus.seanchoo.top
