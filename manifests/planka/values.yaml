@@ -5,14 +5,9 @@ replicaCount: 1
 secretkey: TcbN4vgY95hTpQgFL2jZ8kop+zE4cpYLk3MYfBFoVOXbDxQkcfIQYytAqtRA
 
 image:
-  tag: "1.26.2"
-## @param existingAdminCredsSecret Name of an existing secret containing the admin username and password
-## NOTE: Must contain keys `username` and `password`
-## NOTE: When it's set, the `admin_username` and `admin_password` parameters are ignored
-existingAdminCredsSecret: planka-admin-creds
+  # tag: "1.26.2"
 
-# Base url for PLANKA. Will override `ingress.hosts[0].host`
-# Defaults to `http://localhost:3000` if ingress is disabled.
+existingAdminCredsSecret: planka-admin-creds
 baseUrl: "planka.seanchoo.top"
 
 ingress:
@@ -31,16 +26,21 @@ ingress:
       hosts:
         - planka.seanchoo.top
 
-## PVC-based data storage configuration
 persistence:
   enabled: true
   accessMode: ReadWriteOnce
   size: 200Mi
 
-oidc:
+postgresql:
   enabled: true
-  existingSecret: "planka-oidc-creds"
-  issuerUrl: "https://authentik.seanchoo.top/application/o/planka"
-  admin:
-    roles: 
-      - planka-admin
+  persistence:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 200Mi
+# oidc:
+#   enabled: true
+#   existingSecret: "planka-oidc-creds"
+#   issuerUrl: "https://authentik.seanchoo.top/application/o/planka"
+#   admin:
+#     roles: 
+#       - planka-admin
