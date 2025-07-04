@@ -12,7 +12,7 @@ spec:
       path: manifests/kube-prometheus-stack
       ref: values
     
-    - repoURL: https://kube-prometheus-stack-community.github.io/helm-charts
+    - repoURL: https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
       targetRevision: 27.23.0
       helm:
