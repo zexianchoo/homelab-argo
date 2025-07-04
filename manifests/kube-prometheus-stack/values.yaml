@@ -9,6 +9,10 @@ grafana:
       - grafana.seanchoo.top
     paths:
       - /
+    tls: 
+      - secretName: grafana-general-tls
+        hosts:
+        - grafana.seanchoo.top
   defaultDashboardsTimezone: PDT
   persistence:
     enabled: true
@@ -19,10 +23,7 @@ grafana:
     size: 200Mi
     finalizers:
       - kubernetes.io/pvc-protection
-    tls: 
-      - secretName: grafana-general-tls
-        hosts:
-        - grafana.seanchoo.top
+
 prometheus:
   ingress:
     enabled: true
