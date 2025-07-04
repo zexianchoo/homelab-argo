@@ -20,6 +20,10 @@ ingress:
       - host: seanchoo.top
         paths:
             path: /
+        pathType: Prefix
+        service:
+          name: homer
+          port: 8080
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure 
       cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
