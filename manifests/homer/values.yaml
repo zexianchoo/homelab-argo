@@ -14,7 +14,7 @@ service:
 
 common:
   initContainers: 
-    - name: copy-homer-assets
+    copy-homer-assets:
       image: busybox:latest # Or an image with `curl` or `wget`
       command: ["sh", "-c", \
           "mkdir -p /www/assets/tools && 
