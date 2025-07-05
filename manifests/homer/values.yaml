@@ -40,7 +40,7 @@ persistence:
 
 configmap:
   config:
-    enabled: false
+    enabled: true
     data:
       config.yml: |
         title: "App dashboard"
