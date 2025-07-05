@@ -55,6 +55,8 @@ configmap:
     enabled: true
     data:
       config.yml: |
+        stylesheet:
+          - "assets/custom.css"
         title: "Sean Choo"
         subtitle: "Home ❤️"
         documentTitle: "Sean Choo" # Customize the browser tab text
@@ -87,11 +89,6 @@ configmap:
 
         # Optional theming
         theme: default # 'default' or one of the themes available in 'src/assets/themes'.
-
-        # Optional custom stylesheet
-        # Will load custom CSS files. Especially useful for custom icon sets.
-        # stylesheet:
-        #   - "assets/custom.css"
 
         # Here is the exhaustive list of customization parameters
         # However all value are optional and will fallback to default if not set.
