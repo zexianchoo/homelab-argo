@@ -15,7 +15,7 @@ service:
 common:
   initContainers: 
     copy-homer-assets:
-      image: alpine:latest # Or an image with `curl` or `wget`
+      image: alpine/curl
       command: ["sh", "-c", \
           "mkdir -p /www/assets/tools && 
           curl -o /www/assets/custom.css https://raw.githubusercontent.com/dracula/homer/refs/heads/master/custom.css" && \
