@@ -18,8 +18,8 @@ common:
       image: alpine/curl
       command: ["sh", "-c", \
           "mkdir -p /www/assets/tools && 
-          curl -o /www/assets/custom.css https://raw.githubusercontent.com/dracula/homer/refs/heads/master/custom.css" && \
-          curl -o www/assets/dracula-background https://raw.githubusercontent.com/dracula/homer/refs/heads/master/dracula-background.png \
+          curl -o /www/assets/custom.css https://raw.githubusercontent.com/dracula/homer/refs/heads/master/custom.css && 
+          curl -o www/assets/dracula-background https://raw.githubusercontent.com/dracula/homer/refs/heads/master/dracula-background.png"
         ]
       volumeMounts:
         - name: config # This name needs to match the volume name created by the persistence.config PVC
