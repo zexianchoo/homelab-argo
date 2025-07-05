@@ -25,8 +25,7 @@ common:
             curl -L -o /www/assets/dracula-background.png https://raw.githubusercontent.com/dracula/homer/master/dracula-background.png
       volumeMounts:
         - name: config 
-          mountPath: /www/assets 
-          readOnly: false
+          mountPath: /config
 ingress:
   main:
     enabled: true
@@ -49,10 +48,11 @@ ingress:
 persistence:
   config:
     enabled: true
-    type: pvc
-    size: 200Mi
-    readOnly: false
-    mountPath: /www/assets
+    existingClaim: homer-config-claim
+    # type: pvc
+    # size: 200Mi
+    # readOnly: false
+    mountPath: /config
 
 configmap:
   config:
