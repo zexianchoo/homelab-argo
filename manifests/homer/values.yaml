@@ -17,8 +17,8 @@ common:
     copy-homer-assets:
       image: alpine/curl
       command: ["sh", "-c", \
-          "mkdir -p /www/assets/tools && 
-          curl --create-dirs -O --output-dir /www/assets/custom.css https://raw.githubusercontent.com/dracula/homer/refs/heads/master/custom.css && 
+          " \
+          curl --create-dirs -O --output-dir /www/assets/custom.css https://raw.githubusercontent.com/dracula/homer/refs/heads/master/custom.css && \
           curl --create-dirs -O --output-dir  www/assets/dracula-background https://raw.githubusercontent.com/dracula/homer/refs/heads/master/dracula-background.png"
         ]
       volumeMounts:
