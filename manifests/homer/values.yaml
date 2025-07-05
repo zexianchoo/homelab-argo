@@ -15,10 +15,14 @@ service:
 common:
   initContainers: 
     copy-homer-assets:
-      image: alpine/curl
-      command: ["sh", "-c", \
-          "curl --create-dirs -O --output-dir /www/assets/custom.css https://raw.githubusercontent.com/dracula/homer/refs/heads/master/custom.css && curl --create-dirs -O --output-dir  www/assets/dracula-background https://raw.githubusercontent.com/dracula/homer/refs/heads/master/dracula-background.png"
-        ]
+      image: curlimages/curl
+      command: 
+          - "sh"
+          - "-c"
+          - | # Literal block scalar for multi-line shell script
+            mkdir -p /www/assets/tools && \
+            curl -L -o /www/assets/custom.css https://raw.githubusercontent.com/dracula/homer/master/custom.css && \
+            curl -L -o /www/assets/dracula-background.png https://raw.githubusercontent.com/dracula/homer/master/dracula-background.png
       volumeMounts:
         - name: config # This name needs to match the volume name created by the persistence.config PVC
           mountPath: /www/assets 
