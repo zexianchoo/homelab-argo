@@ -51,7 +51,8 @@ persistence:
     enabled: true
     type: pvc
     size: 200Mi
-    mountPath: /www/assets`
+    readOnly: false
+    mountPath: /www/assets
 
 configmap:
   config:
