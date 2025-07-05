@@ -12,6 +12,18 @@ service:
       http:
         port: 8080
 
+common:
+  initContainers: 
+    - name: copy-homer-assets
+      image: busybox:latest # Or an image with `curl` or `wget`
+      command: ["sh", "-c", \
+          "mkdir -p /www/assets/tools && 
+          wget -O /www/assets/custom.css https://raw.githubusercontent.com/dracula/homer/refs/heads/master/custom.css" && \
+          wget -O www/assets/dracula-background https://raw.githubusercontent.com/dracula/homer/refs/heads/master/dracula-background.png \
+        ]
+      volumeMounts:
+        - name: config # This name needs to match the volume name created by the persistence.config PVC
+          mountPath: /www/assets 
 ingress:
   main:
     enabled: true
@@ -43,9 +55,9 @@ configmap:
     enabled: true
     data:
       config.yml: |
-        title: "App dashboard"
-        subtitle: "Homer"
-        # documentTitle: "Welcome" # Customize the browser tab text
+        title: "Sean Choo"
+        subtitle: "Home ❤️"
+        documentTitle: "Sean Choo" # Customize the browser tab text
         logo: "assets/logo.png"
         # Alternatively a fa icon can be provided:
         # icon: "fas fa-skull-crossbones"
