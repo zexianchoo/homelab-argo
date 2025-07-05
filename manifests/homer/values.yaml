@@ -24,8 +24,9 @@ common:
             curl -L -o /www/assets/custom.css https://raw.githubusercontent.com/dracula/homer/master/custom.css && \
             curl -L -o /www/assets/dracula-background.png https://raw.githubusercontent.com/dracula/homer/master/dracula-background.png
       volumeMounts:
-        - name: config # This name needs to match the volume name created by the persistence.config PVC
+        - name: config 
           mountPath: /www/assets 
+          readOnly: false
 ingress:
   main:
     enabled: true
