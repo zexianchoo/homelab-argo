@@ -17,9 +17,7 @@ common:
     copy-homer-assets:
       image: alpine/curl
       command: ["sh", "-c", \
-          " \
-          curl --create-dirs -O --output-dir /www/assets/custom.css https://raw.githubusercontent.com/dracula/homer/refs/heads/master/custom.css && \
-          curl --create-dirs -O --output-dir  www/assets/dracula-background https://raw.githubusercontent.com/dracula/homer/refs/heads/master/dracula-background.png"
+          "curl --create-dirs -O --output-dir /www/assets/custom.css https://raw.githubusercontent.com/dracula/homer/refs/heads/master/custom.css && curl --create-dirs -O --output-dir  www/assets/dracula-background https://raw.githubusercontent.com/dracula/homer/refs/heads/master/dracula-background.png"
         ]
       volumeMounts:
         - name: config # This name needs to match the volume name created by the persistence.config PVC
