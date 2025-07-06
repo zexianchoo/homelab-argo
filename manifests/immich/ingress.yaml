@@ -36,13 +36,13 @@ spec:
         - name: immich-server-external 
           port: 2283 
   tls:
-    certResolver: letsencrypt-prod-cloudflare
+    # certResolver: letsencrypt-prod-cloudflare
     secretName: immich-tls
 
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: immich-tls-certificate # Give it a distinct name
+  name: immich-tls # Give it a distinct name
   namespace: default          # Ensure this is the same namespace as your IngressRoute
 spec:
   secretName: immich-tls     # This MUST match the secretName in your IngressRoute
