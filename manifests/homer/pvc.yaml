@@ -3,8 +3,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: homer-config-claim
   namespace: homer
-finalizers:
-  - kubernetes.io/pv-protection
 spec:
   accessModes:
     - ReadWriteMany

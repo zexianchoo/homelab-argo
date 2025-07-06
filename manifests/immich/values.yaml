@@ -1,88 +1,88 @@
-common:
-  serviceAccount:
-    create: true
+# common:
+#   serviceAccount:
+#     create: true
 
-  env:
-    - name: TZ
-      value: US/PDT
-    # - name: PASSWD
-    #   valueFrom:
-    #     secretKeyRef:
-    #       name: secret-name
-    #       key: key-name
-  hostname: immich
+#   env:
+#     - name: TZ
+#       value: US/PDT
+#     # - name: PASSWD
+#     #   valueFrom:
+#     #     secretKeyRef:
+#     #       name: secret-name
+#     #       key: key-name
+#   hostname: immich
 
-  # service:
-  #   main:
-  #     ports:
-  #       http:
-  #         primary: false
-  #       https:
-  #         enabled: true
-  #         primary: true
-  #         protocol: HTTPS
+#   # service:
+#   #   main:
+#   #     ports:
+#   #       http:
+#   #         primary: false
+#   #       https:
+#   #         enabled: true
+#   #         primary: true
+#   #         protocol: HTTPS
 
-  # serviceMonitor:
-  #   enabled: true
+#   # serviceMonitor:
+#   #   enabled: true
 
 
-  # persistence:
-  #   config:
-  #     enabled: true
-  #     size: 200Mi
-server:
-  ingress:
-    main:
-      enabled: true
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure 
-        cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
-      ingressClassName: traefik
-      hosts:
-        - host: immich.seanchoo.top
-          paths:
-            - path: "/"
+#   # persistence:
+#   #   config:
+#   #     enabled: true
+#   #     size: 200Mi
+# server:
+#   ingress:
+#     main:
+#       enabled: true
+#       annotations:
+#         traefik.ingress.kubernetes.io/router.entrypoints: websecure 
+#         cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+#       ingressClassName: traefik
+#       hosts:
+#         - host: immich.seanchoo.top
+#           paths:
+#             - path: "/"
 
-immich:
-  metrics:
-    enabled: true
-  persistence:
-    library:
-      enabled: true
-      existingClaim: immich-library-pvc
+# immich:
+#   metrics:
+#     enabled: true
+#   persistence:
+#     library:
+#       enabled: true
+#       existingClaim: immich-library-pvc
 
-redis:
-  enabled: true
-  architecture: standalone
-  auth:
-    enabled: true
-  master:
-    persistence:
-      size: 500Mi
-
-machine-learning:
-  enabled: true
-  image:
-    repository: ghcr.io/immich-app/immich-machine-learning
-    pullPolicy: IfNotPresent
-  env:
-    TRANSFORMERS_CACHE: /cache
-  persistence:
-    cache:
-      enabled: false
-      size: 2Gi
-      type: pvc
-      accessMode: ReadWriteMany
-    
-# postgresql:
+# redis:
 #   enabled: true
+#   architecture: standalone
 #   auth:
-#     password: "ThisIsNotASecurePassword"
-#   primary:
+#     enabled: true
+#   master:
 #     persistence:
-#       enable: true
 #       size: 500Mi
-#   readReplicas:
-#     persistence:
-#       enable: true
-#       size: 500Mi
+
+# machine-learning:
+#   enabled: true
+#   image:
+#     repository: ghcr.io/immich-app/immich-machine-learning
+#     pullPolicy: IfNotPresent
+#   env:
+#     TRANSFORMERS_CACHE: /cache
+#   persistence:
+#     cache:
+#       enabled: false
+#       size: 2Gi
+#       type: pvc
+#       accessMode: ReadWriteMany
+    
+# # postgresql:
+# #   enabled: true
+# #   auth:
+# #     password: "ThisIsNotASecurePassword"
+# #   primary:
+# #     persistence:
+# #       enable: true
+# #       size: 500Mi
+# #   readReplicas:
+# #     persistence:
+# #       enable: true
+# #       size: 500Mi
