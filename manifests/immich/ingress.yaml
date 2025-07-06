@@ -74,7 +74,7 @@ spec:
   - hosts:
     - immich.seanchoo.top
     # cert-manager will create and manage this secret for you
-    secretName: immich-tls-standard
+    secretName: immich-tls
   # 5. Define the routing rules
   rules:
   - host: immich.seanchoo.top
