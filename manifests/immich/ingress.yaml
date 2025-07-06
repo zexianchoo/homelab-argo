@@ -53,4 +53,38 @@ spec:
     name: letsencrypt-prod-cloudflare # This MUST match your ClusterIssuer name
     kind: ClusterIssuer
   dnsNames:
+    - immich.seanchoo.top 
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: immich-ingress
+  namespace: immich
+  # Annotations are used to configure behavior
+  annotations:
+    # 1. Tell cert-manager which ClusterIssuer to use for this Ingress
+    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+    # 2. Tell Traefik this is for the websecure (HTTPS) entrypoint
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    # 3. Tell Traefik to handle TLS
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  # 4. Define the TLS certificate details
+  tls:
+  - hosts:
     - immich.seanchoo.top
+    # cert-manager will create and manage this secret for you
+    secretName: immich-tls-standard
+  # 5. Define the routing rules
+  rules:
+  - host: immich.seanchoo.top
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          # 6. Point to the same service you created earlier
+          service:
+            name: immich-server-external
+            port:
+              number: 2283
