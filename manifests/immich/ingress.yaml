@@ -35,6 +35,7 @@ spec:
       services:
         - name: immich-server-external 
           port: 2283 
+          scheme: http
   tls:
     certResolver: letsencrypt-prod-cloudflare
     secretName: immich-tls
