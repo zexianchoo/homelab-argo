@@ -38,6 +38,8 @@ spec:
   tls:
     # certResolver: letsencrypt-prod-cloudflare
     secretName: immich-tls
+    hosts:
+      - immich.seanchoo.top 
 
 apiVersion: cert-manager.io/v1
 kind: Certificate
