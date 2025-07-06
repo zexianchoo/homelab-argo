@@ -36,3 +36,4 @@ spec:
           port: 2283 
   tls:
     certResolver: letsencrypt-prod-cloudflare
+    secretName: immich-tls
