@@ -37,10 +37,10 @@ spec:
           port: 2283 
           scheme: http
   tls:
-    certResolver: letsencrypt-prod-cloudflare
+    # certResolver: letsencrypt-prod-cloudflare
     secretName: immich-tls
-    hosts:
-      - immich.seanchoo.top 
+    # hosts:
+    #   - immich.seanchoo.top 
 
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -49,7 +49,7 @@ metadata:
   namespace: immich          # Ensure this is the same namespace as your IngressRoute
 spec:
   secretName: immich-tls     # This MUST match the secretName in your IngressRoute
-  issuerRef:
+  issuerRef:  
     name: letsencrypt-prod-cloudflare # This MUST match your ClusterIssuer name
     kind: ClusterIssuer
   dnsNames:
