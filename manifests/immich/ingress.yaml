@@ -27,6 +27,7 @@ metadata:
   namespace: default 
 spec:
   entryPoints:
+    - web
     - websecure 
   routes:
     - match: Host(`immich.seanchoo.top`)
