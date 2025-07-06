@@ -37,3 +37,16 @@ spec:
   tls:
     certResolver: letsencrypt-prod-cloudflare
     secretName: immich-tls
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: immich-tls-certificate # Give it a distinct name
+  namespace: default          # Ensure this is the same namespace as your IngressRoute
+spec:
+  secretName: immich-tls     # This MUST match the secretName in your IngressRoute
+  issuerRef:
+    name: letsencrypt-prod-cloudflare # This MUST match your ClusterIssuer name
+    kind: ClusterIssuer
+  dnsNames:
+    - immich.seanchoo.top
