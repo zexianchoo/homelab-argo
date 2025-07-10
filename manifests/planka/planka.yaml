@@ -1,0 +1,195 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: planka-postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce 
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: planka-postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: planka-postgres
+  template:
+    metadata:
+      labels:
+        app: planka-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: "planka"
+            - name: POSTGRES_HOST_AUTH_METHOD
+              value: "trust" 
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
+          readinessProbe: 
+            exec:
+              command: ["pg_isready", "-U", "postgres", "-d", "planka"]
+            initialDelaySeconds: 10
+            periodSeconds: 5
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: planka-postgres-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: planka-postgres-service
+spec:
+  type: ClusterIP
+  selector:
+    app: planka-postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+---
+# 5. PersistentVolumeClaims for Planka Data
+# One for each volume defined in the docker-compose file.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: planka-favicons-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: planka-user-avatars-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: planka-background-images-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: planka-attachments-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi 
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: planka-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: planka
+  template:
+    metadata:
+      labels:
+        app: planka
+    spec:
+      initContainers:
+      - name: wait-for-postgres
+        image: busybox:1.36
+        command: ['sh', '-c', 'until nc -z -w 2 planka-postgres-service 5432; do echo "Waiting for postgres..."; sleep 2; done;']
+      containers:
+        - name: planka
+          image: ghcr.io/plankanban/planka:2.0.0-rc.3
+          ports:
+            - containerPort: 1337
+          env:
+            - name: BASE_URL
+              value: "http://planka.seanchoo.top"
+            - name: DATABASE_URL
+              value: "postgresql://postgres@planka-postgres-service/planka"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: planka-secret
+                  key: SECRET_KEY
+          volumeMounts:
+            - name: favicons-storage
+              mountPath: /app/public/favicons
+            - name: user-avatars-storage
+              mountPath: /app/public/user-avatars
+            - name: background-images-storage
+              mountPath: /app/public/background-images
+            - name: attachments-storage
+              mountPath: /app/private/attachments
+      volumes:
+        - name: favicons-storage
+          persistentVolumeClaim:
+            claimName: planka-favicons-pvc
+        - name: user-avatars-storage
+          persistentVolumeClaim:
+            claimName: planka-user-avatars-pvc
+        - name: background-images-storage
+          persistentVolumeClaim:
+            claimName: planka-background-images-pvc
+        - name: attachments-storage
+          persistentVolumeClaim:
+            claimName: planka-attachments-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: planka-service
+spec:
+  type: ClusterIP
+  selector:
+    app: planka
+  ports:
+    - protocol: TCP
+      port: 80 
+      targetPort: 1337
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: planka-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: "planka.seanchoo.top"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: planka-service
+                port:
+                  number: 80

@@ -1,32 +1,25 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: planka
-#   labels:
-#   namespace: argocd
-# spec:
-#   project: default
-#   sources:
-#     - repoURL: https://github.com/zexianchoo/homelab-argo.git
-#       targetRevision: HEAD
-#       path: manifests/planka
-#       ref: values
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: planka
+  labels:
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/zexianchoo/homelab-argo.git
+      targetRevision: HEAD
+      path: manifests/planka
+      ref: values
     
-#     - repoURL: http://plankanban.github.io/planka
-#       chart: planka
-#       targetRevision: 1.0.3
-#       helm:
-#         valueFiles:
-#           - $values/manifests/planka/values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: planka
 
-#   destination:
-#     server: 'https://kubernetes.default.svc'
-#     namespace: planka
-
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - CreateNamespace=true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
 
