@@ -4,6 +4,7 @@ metadata:
   name: immich-server-external 
   namespace: immich 
 spec:
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 2283        
