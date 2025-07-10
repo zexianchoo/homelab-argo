@@ -131,7 +131,7 @@ spec:
             - containerPort: 1337
           env:
             - name: BASE_URL
-              value: "http://planka.seanchoo.top"
+              value: "https://planka.seanchoo.top"
             - name: DATABASE_URL
               value: "postgresql://postgres@planka-postgres-service/planka"
             - name: SECRET_KEY
