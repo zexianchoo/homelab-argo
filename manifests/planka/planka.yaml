@@ -185,6 +185,10 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
+  tls:
+  - hosts:
+    - planka.seanchoo.top
+    secretName: planka-tls
   rules:
     - host: "planka.seanchoo.top"
       http:
