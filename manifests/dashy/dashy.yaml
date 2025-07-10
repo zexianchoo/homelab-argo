@@ -1,0 +1,185 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashy-page-config
+data:
+  conf.yml: |
+    pageInfo:
+      title: 🔥🔥 Sean Choo 🔥🔥
+      description: caffeine in my veins, decafs are my banes
+      navLinks:
+        - title: Portfolio
+          path: https://zexianchoo.github.io/
+        - title: GitHub
+          path: https://github.com/zexianchoo
+        - title: Linkedin
+          path: https://www.linkedin.com/in/zexianchoo/
+        - title: Source Code
+          path: https://github.com/zexianchoo/homelab
+    appConfig:
+      theme: adventure
+      statusCheck: true
+      layout: vertical
+      iconSize: large
+      statusCheckInterval: 60
+      faviconApi: iconhorse
+      showSplashScreen: false
+      hideComponents:
+        hideFooter: true
+        hideSearch: true
+        hideSettings: true
+      auth:
+        users:
+          - user: kai1044
+            hash: eaa2bded32cc585d3f37c5319abe8890ad28a697ed66d5823f10536cc9c0fdb9
+            type: admin
+        enableGuestAccess: true
+    sections:
+      - name: Public
+        icon: fas fa-rocket
+        displayData:
+          sectionLayout: grid
+          itemCountX: 1
+          sortBy: default
+          rows: 1
+          cols: 1
+          collapsed: false
+          hideForGuests: false
+        items:
+          - title: Resume Website
+            description: Portfolio Website hosting my projects, ideas and lore!
+            icon: favicon
+            url: https://zexianchoo.github.io/
+            target: newtab
+            id: 0_607_resumewebsite
+          - title: GitHub
+            description: Where you can find all my code and fun projects :)
+            url: https://github.com/zexianchoo
+            icon: favicon
+            target: newtab
+            id: 1_607_github
+          - title: Filestash
+            description: Quick and easy file hosting for fast sharing
+            url: https://filestash.seanchoo.top
+            icon: hl-filestash
+            target: newtab
+            id: 2_607_filestash
+          - title: Glance
+            description: Daily dose of customizable tech news!
+            url: https://glance.seanchoo.top
+            icon: hl-glance
+            target: newtab
+            id: 3_607_glance
+      - name: Private
+        icon: fas fa-rocket
+        displayData:
+          sectionLayout: grid
+          itemCountX: 1
+          sortBy: most-used
+        items:
+          - title: Immich
+            description: Personal self-hosted photos solution!
+            icon: hl-immich
+            url: https://immich.seanchoo.top
+            target: newtab
+            id: 0_731_immich
+          - title: Firefly
+            description: Personal finance tracking :P
+            url: https://firefly.seanchoo.top
+            icon: hl-firefly
+            target: newtab
+            id: 1_731_firefly
+          - title: Filestash
+            description: Personal private file storage
+            url: https://files.seanchoo.top
+            icon: hl-filestash
+            target: newtab
+            id: 2_731_filestash
+          - title: Nextcloud
+            description: Personal cloud filesystem hosted on this server
+            url: https://nextcloud.seanchoo.top
+            icon: hl-nextcloud
+            target: newtab
+            id: 3_731_nextcloud
+          - title: Planka
+            description: Personal todo list :D
+            url: https://planka.seanchoo.top
+            icon: hl-planka
+            target: newtab
+            id: 4_731_planka
+          - title: ChangeDetection
+            description: Uses Playwright to detect changes to websites, for booking or price tracking
+            url: https://changedetection.seanchoo.top
+            icon: hl-changedetection
+            target: newtab
+            id: 5_731_changedetection
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashy
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: dashy 
+  template:
+    metadata:
+      labels:
+        app: dashy
+    spec:
+      containers:
+      - name: dashy-contianer
+        image: lissy93/dashy:latest 
+        ports:
+        - containerPort: 8080 
+        volumeMounts:
+        - name: config-volume 
+          mountPath: /app/user-data/conf.yml 
+          subPath: conf.yml 
+      volumes:
+      - name: config-volume 
+        configMap:
+          name: dashy-page-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashy-service
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 8080 
+    targetPort: 8080 
+  selector:
+    app: dashy
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dashy-ingress
+  namespace: dashy
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  tls:
+  - hosts:
+    - seanchoo.top
+    secretName: dashy-tls
+  rules:
+  - host: seanchoo.top
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dashy-service
+            port:
+              number: 8080
+
