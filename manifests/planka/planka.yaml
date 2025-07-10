@@ -143,6 +143,8 @@ spec:
               value: "choozexian@gmail.com" 
             - name: DEFAULT_ADMIN_USERNAME
               value: "admin"
+            - name: DEFAULT_ADMIN_NAME
+              value: "Sean Choo"
             - name: DEFAULT_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
