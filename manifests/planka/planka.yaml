@@ -139,15 +139,6 @@ spec:
                 secretKeyRef:
                   name: planka-secret
                   key: SECRET_KEY
-          volumeMounts:
-            - name: favicons-storage
-              mountPath: /app/public/favicons
-            - name: user-avatars-storage
-              mountPath: /app/public/user-avatars
-            - name: background-images-storage
-              mountPath: /app/public/background-images
-            - name: attachments-storage
-              mountPath: /app/private/attachments
             - name: DEFAULT_ADMIN_EMAIL
               value: "choozexian@gmail.com" 
             - name: DEFAULT_ADMIN_USERNAME
@@ -157,6 +148,15 @@ spec:
                 secretKeyRef:
                   name: planka-secret
                   key: planka-admin-password
+          volumeMounts:
+            - name: favicons-storage
+              mountPath: /app/public/favicons
+            - name: user-avatars-storage
+              mountPath: /app/public/user-avatars
+            - name: background-images-storage
+              mountPath: /app/public/background-images
+            - name: attachments-storage
+              mountPath: /app/private/attachments
       volumes:
         - name: favicons-storage
           persistentVolumeClaim:
