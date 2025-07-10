@@ -148,6 +148,15 @@ spec:
               mountPath: /app/public/background-images
             - name: attachments-storage
               mountPath: /app/private/attachments
+            - name: DEFAULT_ADMIN_EMAIL
+              value: "choozexian@gmail.com" 
+            - name: DEFAULT_ADMIN_USERNAME
+              value: "admin"
+            - name: DEFAULT_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: planka-secret
+                  key: planka-admin-password
       volumes:
         - name: favicons-storage
           persistentVolumeClaim:
