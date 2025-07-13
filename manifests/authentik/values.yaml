@@ -86,11 +86,11 @@ postgresql:
       size: 500Mi
    
 redis:
-  enabled: true
+  enabled: false
   master:
     persistence:
       size: 500Mi
-  auth:
-    existingSecret: authentik-secret
-    existingSecretPasswordKey: authentik-redis-password
+  # auth:
+  #   existingSecret: authentik-secret
+  #   existingSecretPasswordKey: authentik-redis-password
 
