@@ -86,7 +86,7 @@ postgresql:
       size: 500Mi
    
 redis:
-  enabled: false
+  enabled: true
   master:
     persistence:
       size: 500Mi
