@@ -12,7 +12,7 @@ data:
           "rel": "http://openid.net/specs/connect/1.0/issuer"
         }
       ],
-      "subject": "choozexian@gmail.com"
+      "subject": "admin@seanchoo.top"
     }
 ---
 apiVersion: apps/v1
