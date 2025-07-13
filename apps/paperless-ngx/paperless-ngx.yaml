@@ -12,7 +12,7 @@ spec:
       path: manifests/paperless-ngx
       ref: values
     
-    - repoURL: oci://ghcr.io/gabe565/charts/
+    - repoURL: oci://ghcr.io/gabe565/charts
       chart: paperless-ngx
       targetRevision: 0.24.1
       helm:
