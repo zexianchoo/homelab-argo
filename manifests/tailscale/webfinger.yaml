@@ -11,7 +11,8 @@ data:
           "href": "https://authentik.company/application/o/<application_slug>/",
           "rel": "http://openid.net/specs/connect/1.0/issuer"
         }
-      ]
+      ],
+      "subject": "choozexian@gmail.com"
     }
 ---
 apiVersion: apps/v1
