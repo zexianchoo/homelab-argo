@@ -1,5 +1,5 @@
-global:
-  addPrometheusAnnotations: true
+# global:
+#   addPrometheusAnnotations: true
   
 authentik:
   secret_key: 
