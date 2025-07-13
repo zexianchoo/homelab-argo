@@ -1,0 +1,76 @@
+
+image:
+  repository: ghcr.io/paperless-ngx/paperless-ngx
+  pullPolicy: IfNotPresent
+  tag: 2.14.7
+
+env:
+  - name: TZ
+    value: PDT
+  - name: PAPERLESS_SECRET_KEY
+    valueFrom:
+      secretKeyRef:
+        name: paperless-secret-key   
+        key: PAPERLESS_SECRET_KEY    
+
+service:
+  main:
+    ports:
+      http:
+        port: 8000
+
+ingress:
+  enabled: true
+  hosts:
+      - paperless.seanchoo.top
+  ingressClassName: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure 
+    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+  tls:
+    - secretName: paperless-tls
+      hosts:
+        - paperless.seanchoo.top
+
+persistence:
+  data:
+    enabled: false
+    retain: true
+    mountPath: /usr/src/paperless/data
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    size: 300Mi
+  media:
+    enabled: false
+    retain: true
+    mountPath: /usr/src/paperless/media
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    size: 4Gi
+  export:
+    enabled: true
+    retain: true
+    mountPath: /usr/src/paperless/export
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    size: 1Gi
+  consume:
+    enabled: true
+    retain: true
+    mountPath: /usr/src/paperless/consume
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    size: 2Gi
+
+redis:
+  enabled: true
+  auth:
+    enabled: true
+    username: "admin"
+    existingSecret: paperless-secret-key  
+    existingSecretPasswordKey: redis-password
+  master:
+    persistence:
+      enabled: false
+  replica:
+    replicaCount: 0
