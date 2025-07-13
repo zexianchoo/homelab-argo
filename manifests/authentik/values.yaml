@@ -90,7 +90,8 @@ redis:
   master:
     persistence:
       size: 500Mi
-  # auth:
-  #   existingSecret: authentik-secret
-  #   existingSecretPasswordKey: authentik-redis-password
+  auth:
+    enabled: true
+    existingSecret: authentik-secret
+    existingSecretPasswordKey: authentik-redis-password
 
