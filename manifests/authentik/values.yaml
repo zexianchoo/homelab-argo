@@ -38,21 +38,25 @@ server:
 #   rules:
     # enabled: true
 
-# postgresql:
-#   enabled: true
-#   auth:
-#     password: "ThisIsNotASecurePassword"
-#   primary:
-#     persistence:
-#       enable: true
-#       size: 500Mi
-#   readReplicas:
-#     persistence:
-#       enable: true
-#       size: 500Mi
+postgresql:
+  enabled: true
+  auth:
+    password:
+      valueFrom:
+          secretKeyRef:
+            name: authentik-secret
+            key: authentik-postgres-password
+  primary:
+    persistence:
+      enable: true
+      size: 500Mi
+  readReplicas:
+    persistence:
+      enable: true
+      size: 500Mi
    
-# redis:
-#   enabled: true
-#   master:
-#     persistence:
-#       size: 500Mi
+redis:
+  enabled: true
+  master:
+    persistence:
+      size: 500Mi
