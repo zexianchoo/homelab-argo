@@ -5,7 +5,7 @@ image:
   tag: 2.14.7
 
 env:
-  TZ: PDT
+  TZ: America/Los_Angeles
   PAPERLESS_SECRET_KEY:
     valueFrom:
       secretKeyRef:
