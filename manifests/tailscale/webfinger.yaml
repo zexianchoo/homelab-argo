@@ -1,28 +1,82 @@
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webfinger-json
+  namespace: tailscale
+data:
+  webfinger: |-
+    {
+      "links": [
+        {
+          "href": "https://authentik.company/application/o/<application_slug>/",
+          "rel": "http://openid.net/specs/connect/1.0/issuer"
+        }
+      ]
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webfinger-server
+  namespace: tailscale
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webfinger-server
+  template:
+    metadata:
+      labels:
+        app: webfinger-server
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.27-alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: webfinger-file
+          mountPath: /usr/share/nginx/html/.well-known
+          readOnly: true
+      volumes:
+      - name: webfinger-file
+        configMap:
+          name: webfinger-json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webfinger-service
+  namespace: tailscale
+spec:
+  selector:
+    app: webfinger-server
+  ports:
+    - port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: webfinger-ingress
-  namespace: tailscale
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: Host(`seanchoo.top`) && Path(`/.well-known/webfinger`)
-      kind: Rule
-      middlewares:
-        - name: webfinger-response
+  ingressClassName: traefik
   tls:
-    certResolver: letsencrypt
----
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: webfinger-response
-  namespace: tailscale
-spec:
-  plugin:
-    staticResponse:
-      body: '{ "links": [ { "href": "https://authentik.company/application/o/<application_slug>/", "rel": "http://openid.net/specs/connect/1.0/issuer" } ] }'
-      headers:
-        Content-Type: "application/jrd+json; charset=utf-8"
-      statusCode: 200
+  - hosts:
+    - seanchoo.top
+    secretName: webfinger-tls
+  rules:
+    - host: "seanchoo.top"
+      http:
+        paths:
+          - path: /.well-known/webfinger
+            pathType: Exact 
+            backend:
+              service:
+                name: webfinger-service
+                port:
+                  number: 80
