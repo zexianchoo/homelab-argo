@@ -22,7 +22,9 @@ ingress:
   main:
     enabled: true
     hosts:
-        - paperless.seanchoo.top
+      - host: paperless.seanchoo.top
+        paths:
+          - path: /
     ingressClassName: traefik
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure 
