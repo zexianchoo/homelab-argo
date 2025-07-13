@@ -4,12 +4,12 @@ worker:
       valueFrom:
         secretKeyRef:
           name: authentik-secret
-          key: password
+          key: authentik-postgres-password
     - name: AUTHENTIK_SECRET_KEY
       valueFrom:
         secretKeyRef:
           name: authentik-secret
-          key: secret_key
+          key: authentik-secret-key
     - name: AUTHENTIK_REDIS__PASSWORD
       valueFrom:
         secretKeyRef:
