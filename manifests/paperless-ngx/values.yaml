@@ -76,11 +76,9 @@ postgresql:
   enabled: true
   auth:
     database: paperless
-    postgresPassword: 
-      valueFrom:
-        secretKeyRef:
-          name: paperless-secret-key
-          key: redis-password
+    pexistingSecret: paperless-secret-key
+    secretKeys:
+      userPasswordKey: paperless-postgres-password
   primary:
     persistence:
       enabled: true
