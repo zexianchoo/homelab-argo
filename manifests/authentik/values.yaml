@@ -55,8 +55,8 @@ postgresql:
   auth:
     existingSecret: authentik-secret
     secretKeys:
-      userpasswordKey: "authentik-postgres-password"
-      adminPasswordKey: "authentik-postgres-password"
+      userpasswordKey: authentik-postgres-password
+      adminPasswordKey: authentik-postgres-password
 
   primary:
     persistence:
