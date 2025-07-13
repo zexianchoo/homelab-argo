@@ -73,7 +73,9 @@ postgresql:
   auth:
     username: authentik
     existingSecret: authentik-secret
-
+    secretKeys:
+      adminPasswordKey: authentik-postgres-password
+      userPasswordKey: authentik-postgres-password
   primary:
     persistence:
       enable: true
@@ -88,3 +90,7 @@ redis:
   master:
     persistence:
       size: 500Mi
+  auth:
+    existingSecret: authentik-secret
+    existingSecretPasswordKey: authentik-redis-password
+
