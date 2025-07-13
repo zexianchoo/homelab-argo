@@ -11,7 +11,12 @@ env:
       secretKeyRef:
         name: paperless-secret-key   
         key: PAPERLESS_SECRET_KEY  
-
+  PAPERLESS_ADMIN_USER: admin
+  PAPERLESS_ADMIN_PASSWORD:
+    valueFrom:
+        secretKeyRef:
+          name: paperless-secret-key   
+          key: paperless-admin-password 
 service:
   main:
     ports:
