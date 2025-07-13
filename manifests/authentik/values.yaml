@@ -1,4 +1,22 @@
-global:
+worker:
+  env:
+    - name: AUTHENTIK_POSTGRESQL__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authentik-creds
+          key: password
+    - name: AUTHENTIK_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: authentik-creds
+          key: secret_key
+    - name: AUTHENTIK_REDIS__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authentik-secret
+          key: authentik-redis-password
+
+server:
   env:
     - name: AUTHENTIK_POSTGRESQL__PASSWORD
       valueFrom:
@@ -15,8 +33,6 @@ global:
         secretKeyRef:
           name: authentik-secret
           key: authentik-secret-key
-
-server:
   ingress:
     enabled: true
     hosts:
@@ -37,10 +53,11 @@ server:
 postgresql:
   enabled: true
   auth:
-    username: "authentik"
-    adminPasswordKey: "authentik-secret"
+    existingSecret: authentik-creds
     secretKeys:
-      passwordKey: "authentik-postgres-password"
+      userpasswordKey: "authentik-postgres-password"
+      adminPasswordKey: "authentik-postgres-password"
+
   primary:
     persistence:
       enable: true
