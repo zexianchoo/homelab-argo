@@ -53,6 +53,7 @@ server:
 postgresql:
   enabled: true
   auth:
+    username: authentik
     existingSecret: authentik-secret
     secretKeys:
       userPasswordKey: authentik-postgres-password
