@@ -41,7 +41,7 @@ server:
 postgresql:
   enabled: true
   auth:
-    existingSecret: "authentik-secret"
+    adminPasswordKey: "authentik-secret"
     secretKeys:
       passwordKey: "authentik-postgres-password"
   primary:
