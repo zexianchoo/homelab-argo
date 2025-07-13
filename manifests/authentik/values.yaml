@@ -43,9 +43,9 @@ postgresql:
   auth:
     password:
       valueFrom:
-          secretKeyRef:
-            name: authentik-secret
-            key: authentik-postgres-password
+        secretKeyRef:
+          name: authentik-secret
+          key: authentik-postgres-password
   primary:
     persistence:
       enable: true
