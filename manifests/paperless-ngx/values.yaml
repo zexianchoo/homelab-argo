@@ -65,7 +65,19 @@ persistence:
     size: 2Gi
 
 redis:
-  enabled: false
+  enabled: true
+  auth:
+    enabled: true
+    username: ""
+    existingSecret: paperless-secret-key
+    existingSecretPasswordKey: paperless-postgres-password
+  master:
+    persistence:
+      enabled: false
+  replica:
+    replicaCount: 0
+
+
 
 postgresql:
   enabled: true
