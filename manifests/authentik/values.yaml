@@ -3,12 +3,12 @@ worker:
     - name: AUTHENTIK_POSTGRESQL__PASSWORD
       valueFrom:
         secretKeyRef:
-          name: authentik-creds
+          name: authentik-secret
           key: password
     - name: AUTHENTIK_SECRET_KEY
       valueFrom:
         secretKeyRef:
-          name: authentik-creds
+          name: authentik-secret
           key: secret_key
     - name: AUTHENTIK_REDIS__PASSWORD
       valueFrom:
@@ -53,7 +53,7 @@ server:
 postgresql:
   enabled: true
   auth:
-    existingSecret: authentik-creds
+    existingSecret: authentik-secret
     secretKeys:
       userpasswordKey: "authentik-postgres-password"
       adminPasswordKey: "authentik-postgres-password"
