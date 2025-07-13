@@ -5,13 +5,12 @@ image:
   tag: 2.14.7
 
 env:
-  - name: TZ
-    value: PDT
-  - name: PAPERLESS_SECRET_KEY
+  TZ: PDT
+  PAPERLESS_SECRET_KEY:
     valueFrom:
       secretKeyRef:
         name: paperless-secret-key   
-        key: PAPERLESS_SECRET_KEY    
+        key: PAPERLESS_SECRET_KEY  
 
 service:
   main:
