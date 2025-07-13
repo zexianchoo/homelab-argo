@@ -8,7 +8,7 @@ data:
     {
       "links": [
         {
-          "href": "https://authentik.company/application/o/<application_slug>/",
+          "href": "https://authentik.company/application/o/tailscale/",
           "rel": "http://openid.net/specs/connect/1.0/issuer"
         }
       ],
