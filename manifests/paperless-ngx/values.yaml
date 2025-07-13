@@ -12,11 +12,6 @@ env:
         name: paperless-secret-key   
         key: PAPERLESS_SECRET_KEY  
 
-  A_REDIS_PASSWORD:
-      valueFrom:
-        secretKeyRef:
-          name: paperless-secret-key
-          key: redis-password
 service:
   main:
     ports:
