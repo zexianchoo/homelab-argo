@@ -1,0 +1,28 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: webfinger-ingress
+  namespace: tailscale
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`seanchoo.top`) && Path(`/.well-known/webfinger`)
+      kind: Rule
+      middlewares:
+        - name: webfinger-response
+  tls:
+    certResolver: letsencrypt
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: webfinger-response
+  namespace: tailscale
+spec:
+  plugin:
+    staticResponse:
+      body: '{ "links": [ { "href": "https://authentik.company/application/o/<application_slug>/", "rel": "http://openid.net/specs/connect/1.0/issuer" } ] }'
+      headers:
+        Content-Type: "application/jrd+json; charset=utf-8"
+      statusCode: 200

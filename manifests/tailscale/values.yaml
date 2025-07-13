@@ -9,3 +9,4 @@ oauth:
         secretKeyRef:
           name: tailscale-oauth-client-password
           key: tailscale-oauth-client-password
+          
