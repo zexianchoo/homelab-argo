@@ -14,7 +14,7 @@ spec:
     
     - repoURL: oci://ghcr.io/gabe565/charts/paperless-ngx
       chart: paperless-ngx
-      targetRevision: latest
+      targetRevision: 0.24.1
       helm:
         valueFiles:
           - $values/manifests/paperless-ngx/values.yaml
