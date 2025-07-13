@@ -1,13 +1,30 @@
+global:
+  addPrometheusAnnotations: true
+  
 authentik:
-  secret_key: "PleaseGenerateA50CharKey"
+  secret_key: 
+    valueFrom:
+        secretKeyRef:
+          name: authentik-secret
+          key: authentik-secret-key
   postgresql:
-    password: "ThisIsNotASecurePassword"
+    password: 
+      valueFrom:
+        secretKeyRef:
+          name: authentik-secret
+          key: authentik-postgres-password
+  redis:
+    password:
+      valueFrom:
+        secretKeyRef:
+          name: authentik-secret
+          key: authentik-redis-password
 
 server:
   ingress:
     enabled: true
     hosts:
-        - authentik.seanchoo.top
+      - authentik.seanchoo.top
     ingressClassName: traefik
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure 
@@ -21,21 +38,21 @@ server:
 #   rules:
     # enabled: true
 
-postgresql:
-  enabled: true
-  # auth:
-  #   password: "ThisIsNotASecurePassword"
-  primary:
-    persistence:
-      enable: true
-      size: 500Mi
-  readReplicas:
-    persistence:
-      enable: true
-      size: 500Mi
+# postgresql:
+#   enabled: true
+#   auth:
+#     password: "ThisIsNotASecurePassword"
+#   primary:
+#     persistence:
+#       enable: true
+#       size: 500Mi
+#   readReplicas:
+#     persistence:
+#       enable: true
+#       size: 500Mi
    
-redis:
-  enabled: true
-  master:
-    persistence:
-      size: 500Mi
+# redis:
+#   enabled: true
+#   master:
+#     persistence:
+#       size: 500Mi
