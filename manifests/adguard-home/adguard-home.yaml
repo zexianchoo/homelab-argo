@@ -78,3 +78,23 @@ metadata:
   name: appc-adguard
 spec:
   appConnector: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: adguard-ui-ingress
+  namespace: adguard-home
+  annotations:
+    kubernetes.io/ingress.class: tailscale
+spec:
+  rules:
+  - host: adguard.seanchoo.top
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: adguard-home-service
+            port:
+              number: 3000
