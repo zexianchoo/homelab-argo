@@ -88,6 +88,7 @@ metadata:
     kubernetes.io/ingress.class: tailscale
     cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
 spec:
+  ingressClassName: tailscale
   tls:
     - hosts:
       - adguard.seanchoo.top
