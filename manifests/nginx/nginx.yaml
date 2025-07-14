@@ -24,7 +24,8 @@ kind: Service
 metadata:
   name: nginx-service
   namespace: nginx 
-  tailscale.com/expose: "true"
+  annotations:
+    tailscale.com/expose: "true"
 spec:
   selector:
     app: nginx
