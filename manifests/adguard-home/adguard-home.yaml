@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: adguardhome-pvc
+spec:
+  storageClassName: local-path
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard-home-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adguard-home
+  template:
+    metadata:
+      labels:
+        app: adguard-home
+    spec:
+      containers:
+        - name: adguard-home
+          image: adguard/adguardhome
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+            - containerPort: 53
+              protocol: UDP
+            - containerPort: 53
+              protocol: TCP
+            - containerPort: 853
+              protocol: TCP
+          volumeMounts:
+            - name: adguardhome-data
+              mountPath: /opt/adguardhome
+      volumes:
+        - name: adguardhome-data
+          persistentVolumeClaim:
+            claimName: adguardhome-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguard-home-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: adguard-home
+  ports:
+    - name: dns-udp
+      port: 53
+      targetPort: 53
+      protocol: UDP
+    - name: dns-tcp
+      port: 53
+      targetPort: 53
+      protocol: TCP
+    - name: web-ui
+      port: 3000
+      targetPort: 3000
+      protocol: TCP
+    - name: dns-over-tls
+      port: 853
+      targetPort: 853
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: adguard-home-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  tls:
+  - hosts:
+    - adguard.seanchoo.top
+    secretName: adguard-home-tls
+  rules:
+    - host: "adguard.seanchoo.top"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: adguard-home-service
+                port:
+                  number: 3000
