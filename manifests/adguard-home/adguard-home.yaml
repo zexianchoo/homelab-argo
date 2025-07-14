@@ -30,7 +30,9 @@ spec:
         - name: adguard-home
           image: adguard/adguardhome
           ports:
-            - containerPort: 3000
+            - containerPort: 80       # Changed from 3000 to 80 (post-setup port)
+              protocol: TCP
+            - containerPort: 3000     # Keep for initial setup
               protocol: TCP
             - containerPort: 53
               protocol: UDP
@@ -41,12 +43,14 @@ spec:
           volumeMounts:
             - name: adguardhome-data
               mountPath: /opt/adguardhome/work
+              subPath: work           # Added subPath to separate work and conf
             - name: adguardhome-data
               mountPath: /opt/adguardhome/conf
+              subPath: conf           # Added subPath to separate work and conf
       volumes:
         - name: adguardhome-data
-          # persistentVolumeClaim:
-          #   claimName: adguardhome-pvc
+          persistentVolumeClaim:      # Uncommented to use persistent storage
+            claimName: adguardhome-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -67,6 +71,10 @@ spec:
       targetPort: 53
       protocol: TCP
     - name: web-ui
+      port: 80              # Changed from 3000 to 80
+      targetPort: 80        # Changed from 3000 to 80
+      protocol: TCP
+    - name: web-ui-setup     # Added for initial setup phase
       port: 3000
       targetPort: 3000
       protocol: TCP
@@ -74,6 +82,27 @@ spec:
       port: 853
       targetPort: 853
       protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguard-dns-service
+  namespace: adguard-home
+spec:
+  type: NodePort            # NodePort for external DNS access
+  selector:
+    app: adguard-home
+  ports:
+    - name: dns-udp
+      port: 53
+      targetPort: 53
+      protocol: UDP
+      nodePort: 30053       # External port for DNS queries
+    - name: dns-tcp
+      port: 53
+      targetPort: 53
+      protocol: TCP
+      nodePort: 30053       # External port for DNS queries
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -98,4 +127,4 @@ spec:
           service:
             name: adguard-home-service
             port:
-              name: web-ui
+              number: 80 
