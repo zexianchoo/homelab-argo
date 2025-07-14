@@ -60,13 +60,13 @@ spec:
   target:
     name: internal-tls-key-pair
   data:
-    - secretKey: cert
+    - secretKey: tls.cert
       remoteRef:
         conversionStrategy: Default	
         decodingStrategy: None
         key: internal-tls-cert
         metadataPolicy: None
-    - secretKey: key
+    - secretKey: tls.key
       remoteRef:
         conversionStrategy: Default	
         decodingStrategy: None
