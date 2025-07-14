@@ -44,6 +44,6 @@ spec:
   ingressClassName: tailscale
   defaultBackend:
     service:
-      name: nginx
+      name: nginx-service
       port:
         name: https
