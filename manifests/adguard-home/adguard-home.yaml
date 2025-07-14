@@ -157,7 +157,7 @@ spec:
             echo "Using AdGuard Home IP from initContainer: ${ADGUARD_IP}"
 
             # 2. Export the IP as an extra argument for Tailscale.
-            export TS_EXTRA_ARGS="--advertise-routes=${ADGUARD_IP}/32 --advertise-dns"
+            export TS_EXTRA_ARGS="--advertise-routes=${ADGUARD_IP}/32"
 
             # 3. Run the standard Tailscale entrypoint.
             /usr/local/bin/containerboot
