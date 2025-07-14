@@ -56,7 +56,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: adguard-home
+    app: adguard-home-deployment
   ports:
     - name: dns-udp
       port: 53
@@ -88,16 +88,15 @@ metadata:
   name: adguard-ui-ingress
   namespace: adguard-home
   annotations:
-    kubernetes.io/ingress.class: tailscale
     cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
 spec:
   ingressClassName: tailscale
   tls:
     - hosts:
-      - adguard.seanchoo.top
+      - adguard.cobia-mountain.ts.net
       secretName: adguard-tls
   rules:
-  - host: adguard.seanchoo.top
+  - host: adguard.cobia-mountain.ts.net
     http:
       paths:
       - path: /
