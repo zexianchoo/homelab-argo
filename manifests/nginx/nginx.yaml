@@ -26,6 +26,7 @@ metadata:
   namespace: nginx 
   annotations:
     tailscale.com/expose: "true"
+    tailscale.com/tls: "true"
 spec:
   selector:
     app: nginx
