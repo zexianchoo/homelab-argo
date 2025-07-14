@@ -52,6 +52,7 @@ metadata:
   name: adguard-home-service
 spec:
   type: ClusterIP
+  clusterIP: None
   selector:
     app: adguard-home
   ports:
@@ -112,6 +113,7 @@ spec:
       labels:
         app: tailscale-connector
     spec:
+      serviceAccountName: tailscale-connector-sa
       volumes:
         - name: tailscale-state
           emptyDir: {}
