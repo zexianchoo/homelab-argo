@@ -30,6 +30,7 @@ spec:
   ingressClassName: tailscale
   defaultBackend:
     service:
+      name: nginx
       port:
         number: 80
   tls:
