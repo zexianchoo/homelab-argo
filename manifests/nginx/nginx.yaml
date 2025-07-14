@@ -44,6 +44,6 @@ spec:
       name: nginx
       port:
         number: 80
-    tls:
-      - hosts:
-        - nginx
+  tls:
+    - hosts:
+      - nginx
