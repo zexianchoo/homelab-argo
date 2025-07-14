@@ -22,8 +22,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: nginx 
   name: nginx-service
+  namespace: nginx 
 spec:
   selector:
     app: nginx
@@ -38,8 +38,8 @@ kind: Ingress
 metadata:
   name: nginx
   namespace: nginx
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+  # annotations:
+  #   cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
 spec:
   ingressClassName: tailscale
   tls:
