@@ -14,7 +14,7 @@ spec:
     spec:
       tls:
       - hosts:
-        - nginx-service
+        - nginx
       containers:
         - name: nginx
           image: nginx:latest
@@ -48,5 +48,5 @@ spec:
         number: 80
   tls:
     - hosts:
-      - nginx-service
+      - nginx
 
