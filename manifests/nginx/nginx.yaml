@@ -38,21 +38,22 @@ kind: Ingress
 metadata:
   name: nginx
   namespace: nginx
-  # annotations:
-  #   cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare  # your cluster issuer
 spec:
   ingressClassName: tailscale
   tls:
-  - hosts:
-    - nginx.cobia-mountain.ts.net
+    - hosts:
+        - nginx.cobia-mountain.ts.net
+      secretName: nginx-tls
   rules:
-  - host: nginx.cobia-mountain.ts.net
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: nginx-service
-            port:
-              number: 80
+    - host: nginx.cobia-mountain.ts.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-service
+                port:
+                  number: 80
