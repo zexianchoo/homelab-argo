@@ -38,7 +38,9 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: adguardhome-data
-              mountPath: /opt/adguardhome
+              mountPath: /opt/adguardhome/work
+            - name: adguardhome-data
+              mountPath: /opt/adguardhome/conf
       volumes:
         - name: adguardhome-data
           persistentVolumeClaim:
@@ -137,7 +139,7 @@ spec:
           - name: TS_AUTHKEY
             valueFrom:
               secretKeyRef:
-                name: aadguard-home-tailscale-auth-secret
+                name: adguard-home-tailscale-auth-secret
                 key: TS_AUTHKEY
           - name: TS_KUBE_SECRET
             value: "tailscale-auth"
