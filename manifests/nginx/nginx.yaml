@@ -51,7 +51,7 @@ spec:
           service:
             name: nginx-service
             port:
-              number: 2283
+              number: 80
   tls:
     - hosts:
       - nginx.cobia-mountain.ts.net
