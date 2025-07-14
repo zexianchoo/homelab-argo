@@ -102,6 +102,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tailscale-adguard-connector
+  namespace: adguard-home
 spec:
   replicas: 1
   selector:
@@ -169,24 +170,27 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: tailscale-connector-sa
+  namespace: adguard-home
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: tailscale-connector-role
+  namespace: adguard-home
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
   resourceNames: ["tailscale-auth"]
-  verbs: ["get", "update", "create"] # create is needed on first run
+  verbs: ["get", "update", "create"]
 - apiGroups: [""]
   resources: ["events"]
-  verbs: ["create", "patch"] # As recommended by the logs for debugging
+  verbs: ["create", "patch"] 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: tailscale-connector-rb
+  namespace: adguard-home
 subjects:
 - kind: ServiceAccount
   name: tailscale-connector-sa
