@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
-  namespace: nginx 
+  namespace: nginx
 spec:
   replicas: 1
   selector:
@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: nginx
+      annotations:
+        tailscale.com/expose: "true"
     spec:
       containers:
         - name: nginx
@@ -19,18 +21,6 @@ spec:
           ports:
             - containerPort: 80
 
-        - name: tailscale
-          image: tailscale/tailscale:stable
-          args: ["tailscaled", "--tun=userspace-networking", "--socks5-server=localhost:1055"]
-          securityContext:
-            capabilities:
-              add: ["NET_ADMIN", "NET_RAW"]
-          volumeMounts:
-            - name: tailscale-run
-              mountPath: /var/run/tailscale
-      volumes:
-        - name: tailscale-run
-          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
