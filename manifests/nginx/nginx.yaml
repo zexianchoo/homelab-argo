@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
+  namespace: nginx 
 spec:
   replicas: 1
   selector:
@@ -12,9 +13,6 @@ spec:
       labels:
         app: nginx
     spec:
-      tls:
-      - hosts:
-        - nginx.seanchoo.top
       containers:
         - name: nginx
           image: nginx:latest
@@ -24,6 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: nginx 
   name: nginx-service
   annotations:
     kubernetes.io/ingress.class: tailscale
@@ -34,6 +33,7 @@ spec:
     app: nginx
   ports:
     - name: nginx
+      protocol: TCP
       port: 80
       targetPort: 80
 ---
@@ -50,6 +50,18 @@ spec:
       port:
         number: 80
   tls:
-    - hosts:
-      - nginx.seanchoo.top
+  - hosts:
+    - nginx.seanchoo.top
+    secretName: nginx-tls
+  rules:
+  - host: nginx.seanchoo.top
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 80
 
