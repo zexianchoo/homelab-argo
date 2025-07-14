@@ -28,6 +28,10 @@ metadata:
   namespace: nginx
 spec:
   ingressClassName: tailscale
+  defaultBackend:
+    service:
+      port:
+        number: 80
   tls:
     - hosts:
       - nginx
