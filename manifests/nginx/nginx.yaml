@@ -14,7 +14,7 @@ spec:
     spec:
       tls:
       - hosts:
-        - nginx
+        - nginx.seanchoo.top
       containers:
         - name: nginx
           image: nginx:latest
@@ -51,5 +51,5 @@ spec:
         number: 80
   tls:
     - hosts:
-      - nginx
+      - nginx.seanchoo.top
 
