@@ -37,8 +37,8 @@ kind: Ingress
 metadata:
   name: nginx
   namespace: nginx
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+  # annotations:
+    # cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
 spec:
   ingressClassName: tailscale
   rules:
