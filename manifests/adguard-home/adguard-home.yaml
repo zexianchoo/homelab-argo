@@ -50,9 +50,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: adguard-home-service
-annotations:
-    tailscale.com/expose: "true"
-    tailscale.com/hostname: "adguard"
 spec:
   type: ClusterIP
   selector:
@@ -81,4 +78,3 @@ metadata:
   name: appc-adguard
 spec:
   appConnector: {}
-  
