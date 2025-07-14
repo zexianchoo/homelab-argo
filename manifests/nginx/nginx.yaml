@@ -45,7 +45,6 @@ spec:
   tls:
   - hosts:
     - nginx.cobia-mountain.ts.net
-    secretName: nginx-tls
   rules:
   - host: nginx.cobia-mountain.ts.net
     http:
