@@ -59,8 +59,10 @@ spec:
     kind: ClusterSecretStore
   target:
     name: internal-tls-key-pair
+    template:
+      type: kubernetes.io/tls
   data:
-    - secretKey: tls.cert
+    - secretKey: tls.crt
       remoteRef:
         conversionStrategy: Default	
         decodingStrategy: None
