@@ -42,13 +42,11 @@ kind: Ingress
 metadata:
   name: nginx
   namespace: nginx
+  annotations:
+    kubernetes.io/ingress.class: tailscale
+    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
 spec:
   ingressClassName: tailscale
-  defaultBackend:
-    service:
-      name: nginx-service
-      port:
-        number: 80
   tls:
   - hosts:
     - nginx.seanchoo.top
