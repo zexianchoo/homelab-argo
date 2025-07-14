@@ -52,6 +52,7 @@ metadata:
   name: adguard-home-service
 spec:
   type: ClusterIP
+  clusterIP: 10.43.99.174
   selector:
     app: adguard-home
   ports:
@@ -112,26 +113,6 @@ spec:
       labels:
         app: tailscale-connector
     spec:
-      volumes:
-        - name: tailscale-state
-          emptyDir: {}
-      initContainers:
-      - name: discover-adguard-ip
-        image: busybox:1.36 
-        command: ['sh', '-c']
-        args:
-          - |
-            set -e
-            echo "Waiting for AdGuard Home service..."
-            until ADGUARD_IP=$(nslookup adguard-home-service | awk -F': ' '/^Address: / {print $2}'); do
-              echo "DNS not ready, retrying in 2 seconds...";
-              sleep 2;
-            done
-            echo "Found AdGuard Home IP: ${ADGUARD_IP}"
-            echo -n "${ADGUARD_IP}" > /work/adguard_ip
-        volumeMounts:
-        - name: tailscale-state
-          mountPath: /work
       containers:
       - name: tailscale
         image: tailscale/tailscale:latest
@@ -145,21 +126,6 @@ spec:
             value: "tailscale-auth"
           - name: TS_HOSTNAME
             value: "adguard-k8s"
-          # - name: TS_EXTRA_ARGS
-          #   value: "--advertise-routes=10.43.205.188/32 --advertise-dns" # Replace with your AdGuard ClusterIP
-        command: ["/bin/sh", "-c"]
-        args:
-          - |
-            set -e
-            # 1. Read the IP from the file created by the initContainer.
-            ADGUARD_IP=$(cat /work/adguard_ip)
-            echo "Using AdGuard Home IP from initContainer: ${ADGUARD_IP}"
-
-            # 2. Export the IP as an extra argument for Tailscale.
-            export TS_EXTRA_ARGS="--advertise-routes=${ADGUARD_IP}/32 --advertise-dns"
-
-            # 3. Run the standard Tailscale entrypoint.
-            /usr/local/bin/containerboot
-        volumeMounts:
-        - name: tailscale-state
-          mountPath: /work
+          - name: TS_EXTRA_ARGS
+            value: "--advertise-routes=10.43.99.174/32 --advertise-dns" # Replace with your AdGuard ClusterIP
+        
