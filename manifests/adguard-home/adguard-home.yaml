@@ -74,3 +74,11 @@ spec:
       port: 853
       targetPort: 853
       protocol: TCP
+---
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: appc-adguard
+spec:
+  appConnector: {}
+  
