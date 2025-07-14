@@ -44,10 +44,10 @@ spec:
   ingressClassName: tailscale
   tls:
   - hosts:
-    - https://nginx.cobia-mountain.ts.net/
+    - nginx.cobia-mountain.ts.net
     secretName: nginx-tls
   rules:
-  - host: https://nginx.cobia-mountain.ts.net/
+  - host: nginx.cobia-mountain.ts.net
     http:
       paths:
       - path: /
