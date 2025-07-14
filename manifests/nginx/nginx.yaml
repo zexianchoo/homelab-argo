@@ -49,10 +49,10 @@ spec:
   ingressClassName: tailscale
   tls:
   - hosts:
-    - nginx.seanchoo.top
+    - nginx
     secretName: nginx-tls
   rules:
-  - host: nginx.seanchoo.top
+  - host: nginx
     http:
       paths:
       - path: /
