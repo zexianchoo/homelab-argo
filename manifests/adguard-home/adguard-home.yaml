@@ -88,7 +88,7 @@ metadata:
   name: adguard-ui-ingress
   namespace: adguard-home
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+    cert-manager.io/cluster-issuer: internal-cluster-issuer
 spec:
   ingressClassName: tailscale
   tls:

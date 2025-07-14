@@ -13,7 +13,6 @@ spec:
   acme:
     email: choozexian@gmail.com
     server: https://acme-v02.api.letsencrypt.org/directory
-    # server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-prod-account-key
     solvers:
@@ -40,3 +39,36 @@ spec:
           port: 443 
   tls:
     secretName: argocd-server-tls
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: internal-cluster-issuer
+spec:
+  ca:
+    secretName: internal-tls-key-pair
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: internal-tls-key-pair
+  namespace: cert-manager
+spec:
+  secretStoreRef:
+    name: azure-keyvault
+    kind: ClusterSecretStore
+  target:
+    name: internal-tls-key-pair
+  data:
+    - secretKey: cert
+      remoteRef:
+        conversionStrategy: Default	
+        decodingStrategy: None
+        key: internal-tls-cert
+        metadataPolicy: None
+    - secretKey: key
+      remoteRef:
+        conversionStrategy: Default	
+        decodingStrategy: None
+        key: internal-tls-key
+        metadataPolicy: None
