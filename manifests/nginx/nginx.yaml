@@ -18,6 +18,19 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80
+
+        - name: tailscale
+          image: tailscale/tailscale:stable
+          args: ["tailscaled", "--tun=userspace-networking", "--socks5-server=localhost:1055"]
+          securityContext:
+            capabilities:
+              add: ["NET_ADMIN", "NET_RAW"]
+          volumeMounts:
+            - name: tailscale-run
+              mountPath: /var/run/tailscale
+      volumes:
+        - name: tailscale-run
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -31,19 +44,19 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: nginx
-  namespace: nginx
-spec:
-  ingressClassName: tailscale
-  defaultBackend:
-    service:
-      name: nginx
-      port:
-        number: 80
-  tls:
-    - hosts:
-      - nginx
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: nginx
+#   namespace: nginx
+# spec:
+#   ingressClassName: tailscale
+#   defaultBackend:
+#     service:
+#       name: nginx
+#       port:
+#         number: 80
+#   tls:
+#     - hosts:
+#       - nginx
