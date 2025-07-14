@@ -45,8 +45,8 @@ spec:
               mountPath: /opt/adguardhome/conf
       volumes:
         - name: adguardhome-data
-          persistentVolumeClaim:
-            claimName: adguardhome-pvc
+          # persistentVolumeClaim:
+          #   claimName: adguardhome-pvc
 ---
 apiVersion: v1
 kind: Service

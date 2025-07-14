@@ -46,31 +46,31 @@ metadata:
   name: internal-cluster-issuer
 spec:
   ca:
-    secretName: internal-tls-key-pair
+    secretName: internal-root-ca
 ---
-apiVersion: external-secrets.io/v1
+apiVersion: external-secrets.io/v1beta1 # Use the appropriate API version (v1 or v1beta1)
 kind: ExternalSecret
 metadata:
-  name: internal-tls-key-pair
-  namespace: cert-manager
+  name: internal-root-ca
+  namespace: cert-manager # Ensure this namespace exists and is where cert-manager is running
 spec:
+  # Optional: Define refresh interval
   secretStoreRef:
     name: azure-keyvault
-    kind: ClusterSecretStore
+    kind: ClusterSecretStore # Assumes a ClusterSecretStore named 'azure-keyvault' exists
   target:
-    name: internal-tls-key-pair
+    name: internal-root-ca # The name of the Kubernetes secret that will be created
     template:
-      type: kubernetes.io/tls
+      type: kubernetes.io/tls # We want a TLS type secret
+      data:
+        # Map the template variables (.crt and .key) to the final secret keys (tls.crt, tls.key)
+        tls.crt: "{{ .crt }}"
+        tls.key: "{{ .key }}"
   data:
-    - secretKey: tls.crt
+    # This section defines how to fetch the remote data and maps them to template variables
+    - secretKey: crt # The variable name used in the template
       remoteRef:
-        conversionStrategy: Default	
-        decodingStrategy: None
-        key: internal-tls-cert
-        metadataPolicy: None
-    - secretKey: tls.key
+        key: internal-tls-cert # The name of the secret in Azure Key Vault for the certificate
+    - secretKey: key # The variable name used in the template
       remoteRef:
-        conversionStrategy: Default	
-        decodingStrategy: None
-        key: internal-tls-key
-        metadataPolicy: None
+        key: internal-tls-key 
