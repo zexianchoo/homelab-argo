@@ -12,9 +12,23 @@ spec:
       labels:
         app: nginx
     spec:
+      tls:
+      - hosts:
+        - nginx
       containers:
         - name: nginx
           image: nginx:latest
           ports:
             - containerPort: 80
-         
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  namespace: nginx
+spec:
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+      - nginx
+
