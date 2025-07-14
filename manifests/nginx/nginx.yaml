@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: nginx
+      annotations:
+        tailscale.com/expose: "true"
     spec:
       containers:
         - name: nginx
