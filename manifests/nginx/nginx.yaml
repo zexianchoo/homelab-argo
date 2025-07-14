@@ -21,6 +21,19 @@ spec:
           ports:
             - containerPort: 80
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: ClusterIP
+  selector:
+    app: nginx
+  ports:
+    - name: nginx
+      port: 80
+      targetPort: 80
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -30,7 +43,7 @@ spec:
   ingressClassName: tailscale
   defaultBackend:
     service:
-      name: nginx
+      name: nginx-service
       port:
         number: 80
   tls:
