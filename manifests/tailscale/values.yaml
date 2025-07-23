@@ -1,12 +1,12 @@
-oauth: 
-  clientId: 
-    valueFrom:
-      secretKeyRef:
-        name: tailscale-secret
-        key: tailscale-oauth-clientid  
-  clientSecret: 
-    valueFrom:
-        secretKeyRef:
-          name: tailscale-oauth-client-password
-          key: tailscale-oauth-client-password
+# oauth: 
+#   clientId: 
+#     valueFrom:
+#       secretKeyRef:
+#         name: tailscale-secret
+#         key: tailscale-oauth-clientid  
+#   clientSecret: 
+#     valueFrom:
+#         secretKeyRef:
+#           name: tailscale-oauth-client-password
+#           key: tailscale-oauth-client-password
           
