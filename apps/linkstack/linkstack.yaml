@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: linkstack
+  labels:
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/zexianchoo/homelab-argo.git
+      targetRevision: HEAD
+      path: manifests/linkstack
+
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: linkstack
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+

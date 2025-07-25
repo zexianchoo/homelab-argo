@@ -1,23 +1,11 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: adguard-data
-  namespace: adguard-home
-spec:
-  storageClassName: local-path
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: adguard-home-deployment
+  name: adguard-statefulset
   namespace: adguard-home
 spec:
-  replicas: 1
+  serviceName: "adguard"
+  replicas: 2  # Number of replicas
   selector:
     matchLabels:
       app: adguard-home
@@ -26,28 +14,52 @@ spec:
       labels:
         app: adguard-home
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - adguard-home
+              topologyKey: "kubernetes.io/hostname" # Ensure 1 pod per node
       containers:
-        - name: adguard-home
-          image: adguard/adguardhome
-          ports:
-            - name: dns
-              containerPort: 53
-              protocol: UDP
-            - name: webui
-              containerPort: 3000
-              protocol: TCP
-          volumeMounts:
-            - name: adguardhome-data
-              mountPath: /opt/adguardhome/work
-            - name: adguardhome-conf
-              mountPath: /opt/adguardhome/conf
-      volumes:
-        - name: adguardhome-data
-          persistentVolumeClaim:      
-            claimName: adguard-data
-        - name: adguardhome-conf
-          persistentVolumeClaim:      
-            claimName: adguard-data
+      - name: adguard-home
+        image: adguard/adguardhome:latest
+        ports:
+        - containerPort: 53
+          name: dns
+          hostPort: 53  # Bind the node's port to the pod for DNS
+          protocol: UDP
+        - containerPort: 3000
+          name: http-initial
+        - containerPort: 80
+          name: http
+          hostPort: 5380 # Bind the node's port to the pod for API/UI
+          protocol: TCP
+        volumeMounts:
+        - name: adguard-data
+          mountPath: /opt/adguardhome/work/ # AdGuard Runtime data
+        - name: adguard-config
+          mountPath: /opt/adguardhome/conf/ # AdGuard configuration
+  volumeClaimTemplates:
+  - metadata:
+      name: adguard-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: "local-path"
+  - metadata:
+      name: adguard-config
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: "local-path"
 ---
 apiVersion: v1
 kind: Service
@@ -57,13 +69,10 @@ metadata:
   annotations:
     tailscale.com/expose: "true"
 spec:
+  type: NodePort
   selector:
     app: adguard-home
   ports:
-    - name: dns
-      port: 53
-      targetPort: 53
-      protocol: UDP
     - name: webui
       port: 3000 
       targetPort: 3000
