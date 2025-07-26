@@ -6,7 +6,7 @@ metadata:
     app: linkstack
 spec:
   accessModes:
-    - ReadWriteOnce 
+    - ReadWriteOnce
   resources:
     requests:
       storage: 200Mi
@@ -19,7 +19,7 @@ metadata:
   labels:
     app: linkstack
 spec:
-  replicas: 1 
+  replicas: 1
   selector:
     matchLabels:
       app: linkstack
@@ -30,17 +30,17 @@ spec:
     spec:
       containers:
       - name: linkstack
-        image: linkstackorg/linkstack 
+        image: linkstackorg/linkstack
         ports:
         - containerPort: 80
           name: http
         volumeMounts:
-        - name: linkstack-storage 
-          mountPath: /htdocs
+        - name: linkstack-storage
+          mountPath: /data 
       volumes:
       - name: linkstack-storage
         persistentVolumeClaim:
-          claimName: linkstack-pvc 
+          claimName: linkstack-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -50,15 +50,15 @@ metadata:
     app: linkstack
 spec:
   selector:
-    app: linkstack 
+    app: linkstack
   ports:
   - protocol: TCP
-    port: 80 
-    targetPort: 80 
+    port: 80
+    targetPort: 80
     name: http
   - protocol: TCP
-    port: 443 
-    targetPort: 443 
+    port: 443
+    targetPort: 443
     name: https
   type: ClusterIP
 ---
