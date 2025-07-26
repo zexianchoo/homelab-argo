@@ -2,10 +2,8 @@ ingress:
   enabled: true
   className: traefik-private
   annotations: 
-    kubernetes.io/ingress.class: traefik-private
     cert-manager.io/cluster-issuer: internal-cluster-issuer
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
+    tailscale.com/expose: "true"
   hosts:
     - host: jellyfin.cobia-mountain.ts.net
       paths:
