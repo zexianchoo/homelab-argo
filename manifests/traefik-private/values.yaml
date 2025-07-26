@@ -1,38 +1,21 @@
-# This file configures a second Traefik instance for internal use only.
-
-# We define a unique IngressClass for this instance. This is how we'll tell
-# our private services to use this Traefik instead of the public one.
 ingressClass:
   enabled: true
   name: traefik-private
   isDefaultClass: false
 
-# --- FIX ---
-# This is the crucial part. We tell this Traefik instance to ONLY watch for
-# resources that explicitly use its IngressClass. This stops it from
-# fighting with your public Traefik instance.
 providers:
   kubernetesCRD:
-    # Only watch for IngressRoutes with our class name
     ingressClass: traefik-private
   kubernetesIngress:
-    # Only watch for standard Ingresses with our class name
     ingressClass: traefik-private
 
-# We set the service type to ClusterIP so it does NOT get a public IP address.
-# The Tailscale operator will give it a private IP.
 service:
   type: ClusterIP
   ports:
-    # We name the port 'web' to match the entrypoint name for clarity.
     - name: web
-      # The Kubernetes service will listen on port 80.
       port: 80
-      # It will forward traffic to the 'web' entrypoint inside the Traefik pod.
       targetPort: web
 
-# We define a custom entrypoint for our private traffic.
 entryPoints:
   web:
-    # The Traefik pod will listen on port 8000 for traffic coming from the service.
     address: ":8000"

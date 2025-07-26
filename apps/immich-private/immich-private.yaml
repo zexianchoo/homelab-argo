@@ -1,24 +1,24 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: immich-private
-#   namespace: argocd
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
-# spec:
-#   project: default
-#   sources:
-#     - repoURL: https://github.com/zexianchoo/homelab-argo.git
-#       targetRevision: HEAD
-#       path: manifests/immich-private
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: immich-private
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/zexianchoo/homelab-argo.git
+      targetRevision: HEAD
+      path: manifests/immich-private
     
-#   destination:
-#     server: 'https://kubernetes.default.svc'
-#     namespace: immich-private
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: immich-private
 
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - CreateNamespace=true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
