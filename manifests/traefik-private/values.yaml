@@ -12,6 +12,8 @@ ingressClass:
   isDefaultClass: false
 
 providers:
+  kubernetesCRD:
+    ingressClass: traefik-private
   kubernetesIngress:
     ingressClass: traefik-private
 
