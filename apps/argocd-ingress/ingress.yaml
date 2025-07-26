@@ -21,7 +21,7 @@ spec:
           service:
             name: argo-cd-argocd-server
             port:
-              number: 31443
+              number: 80
 # ---
 # apiVersion: networking.k8s.io/v1
 # kind: Ingress
