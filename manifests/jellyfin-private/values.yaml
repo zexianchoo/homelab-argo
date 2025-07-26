@@ -3,7 +3,6 @@ ingress:
   className: tailscale
   annotations: 
     cert-manager.io/cluster-issuer: internal-cluster-issuer
-    tailscale.com/expose: "true"
   hosts:
     - host: jellyfin.cobia-mountain.ts.net
       paths:
