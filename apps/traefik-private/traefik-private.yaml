@@ -21,7 +21,7 @@ spec:
           - $values/manifests/traefik-private/values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: traefik-private
+    namespace: default
 
   syncPolicy:
     automated:
