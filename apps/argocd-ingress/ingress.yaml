@@ -22,30 +22,30 @@ spec:
             name: argo-cd-argocd-server
             port:
               number: 31443
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: argocd-ingress-public
-  namespace: argocd
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
-spec:
-  ingressClassName: traefik
-  tls:
-    - hosts:
-      - argofixed.seanchoo.top
-      secretName: argocd-public-tls 
-  rules:
-  - host: argofixed.seanchoo.top
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: argo-cd-argocd-server
-            port:
-              number: 31443
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: argocd-ingress-public
+#   namespace: argocd
+#   annotations:
+#     cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+#     traefik.ingress.kubernetes.io/router.entrypoints: websecure
+#     traefik.ingress.kubernetes.io/router.tls: "true"
+# spec:
+#   ingressClassName: traefik
+#   tls:
+#     - hosts:
+#       - argofixed.seanchoo.top
+#       secretName: argocd-public-tls 
+#   rules:
+#   - host: argofixed.seanchoo.top
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: argo-cd-argocd-server
+#             port:
+#               number: 31443
