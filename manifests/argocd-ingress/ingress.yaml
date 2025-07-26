@@ -12,10 +12,10 @@ spec:
   ingressClassName: traefik
   tls:
   - hosts:
-    - argo.seanchoo.top
-    secretName: argocd-tls 
+    - argocd.seanchoo.top
+    secretName: argocd-ingress-tls 
   rules:
-  - host: argo.seanchoo.top
+  - host: argocd.seanchoo.top
     http:
       paths:
       - path: /
