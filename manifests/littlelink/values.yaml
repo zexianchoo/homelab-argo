@@ -9,7 +9,7 @@ env:
   META_DESCRIPTION: Sean Choo Link page
   META_AUTHOR: Sean Choo
   THEME: Dark
-  FAVICON_URL: https://avatars.githubusercontent.com/u/99162756?s=400&u=c07b8c59767024d96fb5a7b85a7d4be21a7b73ef&v=4
+  FAVICON_URL: https://placehold.co/64x64/2563eb/ffffff?text=SC&font=sans-serif
   AVATAR_URL: https://avatars.githubusercontent.com/u/99162756?s=400&u=c07b8c59767024d96fb5a7b85a7d4be21a7b73ef&v=4
   AVATAR_2X_URL: https://avatars.githubusercontent.com/u/99162756?s=400&u=c07b8c59767024d96fb5a7b85a7d4be21a7b73ef&v=4
   AVATAR_ALT: Sean Choo Profile Pic
@@ -19,13 +19,13 @@ env:
   WEBSITE: https://seanchoo.top
   LINKED_IN: https://linkedin.com
   FOOTER: Thanks for stopping by!
-  BUTTON_ORDER: WEBSITE,LINKED_IN,GITHUB
+  BUTTON_ORDER: "WEBSITE,LINKED_IN,GITHUB"
   CUSTOM_BUTTON_TEXT: "Personal Website"
   CUSTOM_BUTTON_URL: "https://seanchoo.top/"
   CUSTOM_BUTTON_COLOR: "#2563eb,#7c3aed"
   CUSTOM_BUTTON_TEXT_COLOR: "#ffffff,#ffffff"
   CUSTOM_BUTTON_ALT_TEXT: "Personal Website"
-  CUSTOM_BUTTON_NAME: "Personal Website"
+  CUSTOM_BUTTON_NAME: "WEBSITE"
   CUSTOM_BUTTON_ICON: "fas globe"
 service:
   main:
@@ -55,8 +55,4 @@ ingress:
           - links.seanchoo.top
 persistence:
   config:
-    enabled: true
-    mountPath: /config
-    storageClassName: local-path
-    accessMode: ReadWriteOnce
-    size: 200Mi
+    enabled: false
