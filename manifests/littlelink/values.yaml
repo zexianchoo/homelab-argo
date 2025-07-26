@@ -50,24 +50,27 @@ service:
     ports:
       http:
         port: 3000
-        
-ingress:
-  enabled: true
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
-  ingressClassName: traefik
-  hosts:
-    - host: links.seanchoo.top
-      paths:
-      - path: /
-        pathType: Prefix
-  tls:
-    - secretName: littlelink-tls
-    - hosts:
-      - links.seanchoo.top
 
+ingress:
+  main:
+    enabled: true 
+    ingressClassName: traefik
+
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+
+    hosts:
+      - host: links.seanchoo.top
+        paths:
+          - path: /
+            pathType: Prefix
+
+    tls:
+      - secretName: littlelink-tls
+        hosts:
+          - links.seanchoo.top
 persistence:
   config:
     enabled: true
