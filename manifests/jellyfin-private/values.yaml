@@ -1,0 +1,22 @@
+ingress:
+  enabled: true
+  className: traefik-private
+  annotations: {}
+  hosts:
+    - host: jellyfin.cobia-mountain.ts.net
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+persistence:
+  config:
+    # -- set to false to use emptyDir
+    enabled: true
+    size: 5Gi
+  media:
+    enabled: true
+    type: pvc
+    accessMode: ReadWriteOnce
+    size: 25Gi
+    storageClass: local-path
