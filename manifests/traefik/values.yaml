@@ -10,9 +10,4 @@ priorityClassName: "system-cluster-critical"
 ingressClass:
   name: "traefik"
   enabled: true
-  isDefaultClass: false # Set to false to avoid conflicts
-
-# Configure the provider to only look for its own class
-providers:
-  kubernetesIngress:
-    ingressClass: "traefik"
+  isDefaultClass: true
