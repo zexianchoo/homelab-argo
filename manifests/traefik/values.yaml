@@ -1,66 +1,61 @@
-global:
-  checkNewVersion: true
-  sendAnonymousUsage: true
-image:  
-  registry: ghcr.io/traefik
-  repository: traefik
-  pullPolicy: IfNotPresent
-priorityClassName: "system-cluster-critical"
-
 ingressClass:
   enabled: true
   name: traefik
   isDefaultClass: true
 
-deployment:
-  livenessProbe:
-    httpGet:
-      path: "/ping"
-      port: 9000 
-    initialDelaySeconds: 5
-    periodSeconds: 10
+# Set the IngressClass for CRDs (like IngressRoute, Middleware, etc.)
+providers:
+  kubernetesCRD:
+    enabled: true
+    ingressClass: traefik
+  kubernetesIngress:
+    enabled: true
+    ingressClass: traefik
+    # This is required for the LoadBalancer IP to be reported on Ingress objects
+    publishedService:
+      enabled: true
+
+# Use a LoadBalancer service to expose Traefik to the internet
+service:
+  type: LoadBalancer
+  # Any additional cloud-provider annotations for your LoadBalancer would go here
+  # annotations: {}
+  ports:
+    web:
+      port: 80
+      targetPort: 8000
+    websecure:
+      port: 443
+      targetPort: 8443
+
+# Define entrypoints
 entryPoints:
   web:
     address: ":8000"
+    # Redirect all HTTP traffic to HTTPS
     http:
       redirections:
         entryPoint:
           to: websecure
           scheme: https
+          permanent: true
   websecure:
     address: ":8443"
     http:
+      # Enable TLS on the websecure entrypoint
       tls: {}
-  metrics:
-    address: ":9100"
 
+# Recommended for production clusters
+priorityClassName: "system-cluster-critical"
+
+# Enable the dashboard, but keep it secure (access it via an IngressRoute)
 api:
   dashboard: true
-  insecure: false # The dashboard will be exposed via a secure IngressRoute below.
 
+# Enable ping for health checks
 ping:
-  entryPoint: web 
-# --- Metrics ---
-metrics:
-  prometheus:
-    entryPoint: metrics
+  enabled: true
 
-# --- Providers ---
-providers:
-  kubernetesCRD:
-    enabled: true
-  kubernetesIngress:
-    enabled: true
-    ingressClass: traefik
-    publishedService:
-      path: "traefik/traefik"
-
-service:
-  type: LoadBalancer
-  ports:
-    - name: web
-      port: 80
-      targetPort: 8000
-    - name: websecure
-      port: 443
-      targetPort: 8443
+# Optional: Add any static configurations via additionalArguments
+# additionalArguments:
+#   - "--log.level=INFO"
