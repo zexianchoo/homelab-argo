@@ -14,12 +14,19 @@ env:
   AVATAR_2X_URL: https://avatars.githubusercontent.com/u/99162756?s=400&u=c07b8c59767024d96fb5a7b85a7d4be21a7b73ef&v=4
   AVATAR_ALT: Sean Choo Profile Pic
   NAME: Sean Choo
-  BIO: Hey! Just a place where you can connect with me!
+  BIO: DevOps Engineer | Site Reliability Engineer | Homelab 
   GITHUB: https://github.com/zexianchoo
   WEBSITE: https://seanchoo.top
   LINKED_IN: https://linkedin.com
   FOOTER: Thanks for stopping by!
-
+  BUTTON_ORDER: WEBSITE,LINKED_IN,GITHUB
+  CUSTOM_BUTTON_TEXT: "Explore My Projects!"
+  CUSTOM_BUTTON_URL: "https://seanchoo.top/"
+  CUSTOM_BUTTON_COLOR: "#2563eb,#7c3aed"
+  CUSTOM_BUTTON_TEXT_COLOR: "#ffffff,#ffffff"
+  CUSTOM_BUTTON_ALT_TEXT: "Download my professional resume,A showcase of my recent work and projects"
+  CUSTOM_BUTTON_NAME: "RESUME,PROJECTS"
+  CUSTOM_BUTTON_ICON: "fas file-pdf,fas code-branch"
 service:
   main:
     ports:
