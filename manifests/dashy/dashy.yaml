@@ -164,7 +164,7 @@ metadata:
   namespace: dashy
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kube  rnetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   ingressClassName: traefik

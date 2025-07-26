@@ -11,6 +11,8 @@ ingressClass:
   name: traefik-private
   isDefaultClass: false
 
+priorityClassName: "system-cluster-critical"
+
 providers:
   kubernetesCRD:
     ingressClass: traefik-private
@@ -23,7 +25,3 @@ service:
     - name: web
       port: 80
       targetPort: web
-
-entryPoints:
-  web:
-    address: ":8000"
