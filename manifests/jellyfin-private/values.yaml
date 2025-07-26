@@ -1,17 +1,34 @@
 ingress:
   enabled: true
   className: traefik-private
-  annotations: {}
+  annotations: 
+    kubernetes.io/ingress.class: traefik-private
+    cert-manager.io/cluster-issuer: internal-cluster-issuer
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
   hosts:
     - host: jellyfin.cobia-mountain.ts.net
       paths:
         - path: /
           pathType: Prefix
-  tls: []
+  tls: 
+  - hosts:
+    - jellyfin.cobia-mountain.ts.net
+    secretName: jellyfin-private-tls
+  rules:
+  - host: jellyfin.cobia-mountain.ts.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: jellyfin-private
+            port:
+              number: 8096
 
 persistence:
   config:
-    # -- set to false to use emptyDir
     enabled: true
     size: 5Gi
   media:

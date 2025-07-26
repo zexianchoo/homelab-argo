@@ -8,20 +8,13 @@ image:
   
 ingressClass:
   enabled: true
-  name: traefik-private
+  name: "traefik-private"
   isDefaultClass: false
 
 priorityClassName: "system-cluster-critical"
 
 providers:
   kubernetesCRD:
-    ingressClass: traefik-private
+    ingressClass: "traefik-private"
   kubernetesIngress:
-    ingressClass: traefik-private
-
-service:
-  type: ClusterIP
-  ports:
-    - name: web
-      port: 80
-      targetPort: web
+    ingressClass: "traefik-private"
