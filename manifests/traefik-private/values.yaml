@@ -1,3 +1,11 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: true
+deployment:
+  image:
+    registry: ghcr.io/traefik
+    name: traefik
+    tag: "v2.11"
 ingressClass:
   enabled: true
   name: traefik-private

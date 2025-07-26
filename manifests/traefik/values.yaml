@@ -3,6 +3,7 @@ global:
   sendAnonymousUsage: true
 deployment:
   image:
+    registry: ghcr.io/traefik
     name: traefik
     tag: "v2.11"
   priorityClassName: "system-cluster-critical"
@@ -32,8 +33,7 @@ api:
   insecure: false # The dashboard will be exposed via a secure IngressRoute below.
 
 ping:
-  entryPoint: web # The ping endpoint is accessible on the internal admin entrypoint
-
+  entryPoint: web 
 # --- Metrics ---
 metrics:
   prometheus:
