@@ -9,7 +9,7 @@ priorityClassName: "system-cluster-critical"
 
 ingressClass:
   enabled: true
-  name: traefik-public
+  name: traefik
   isDefaultClass: true
 
 deployment:
@@ -51,7 +51,7 @@ providers:
     enabled: true
   kubernetesIngress:
     enabled: true
-    ingressClass: traefik-public
+    ingressClass: traefik
     publishedService:
       path: "traefik/traefik"
 
