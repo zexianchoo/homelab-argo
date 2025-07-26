@@ -15,10 +15,14 @@ ingressClass:
 
 priorityClassName: "system-cluster-critical"
 
+service:
+  type: LoadBalancer
+  annotations:
+    tailscale.com/expose: "true"
+
+  
 providers:
   kubernetesCRD:
     ingressClass: "traefik-private"
-    namespaces: []
   kubernetesIngress:
     ingressClass: "traefik-private"
-    namespaces: []
