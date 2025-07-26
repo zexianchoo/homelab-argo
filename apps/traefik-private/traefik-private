@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: immich
+  name: traefik-private
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,11 +10,18 @@ spec:
   sources:
     - repoURL: https://github.com/zexianchoo/homelab-argo.git
       targetRevision: HEAD
-      path: manifests/immich
+      path: manifests/traefik-private
+      ref: values
     
+    - repoURL: https://traefik.github.io/charts
+      chart: traefik
+      targetRevision: 36.3.0
+      helm:
+        valueFiles:
+          - $values/manifests/traefik-private/values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: immich
+    namespace: traefik-private
 
   syncPolicy:
     automated:
