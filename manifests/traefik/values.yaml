@@ -1,12 +1,13 @@
 global:
   checkNewVersion: true
   sendAnonymousUsage: true
+image:  
+  registry: ghcr.io/traefik
+  repository: traefik
+  pullPolicy: IfNotPresent
+priorityClassName: "system-cluster-critical"
+
 deployment:
-  image:
-    registry: ghcr.io/traefik
-    name: traefik
-    tag: "v2.11"
-  priorityClassName: "system-cluster-critical"
   livenessProbe:
     httpGet:
       path: "/ping"
