@@ -16,5 +16,7 @@ priorityClassName: "system-cluster-critical"
 providers:
   kubernetesCRD:
     ingressClass: "traefik-private"
+    namespaces: []
   kubernetesIngress:
     ingressClass: "traefik-private"
+    namespaces: []
