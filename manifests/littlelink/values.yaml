@@ -9,9 +9,9 @@ env:
   META_DESCRIPTION: Sean Choo Link page
   META_AUTHOR: Sean Choo
   THEME: Dark
-  FAVICON_URL: https://pbs.twimg.com/profile_images/1286144221217316864/qIAsKOpB_200x200.jpg
-  AVATAR_URL: https://pbs.twimg.com/profile_images/1286144221217316864/qIAsKOpB_200x200.jpg
-  AVATAR_2X_URL: https://pbs.twimg.com/profile_images/1286144221217316864/qIAsKOpB_400x400.jpg
+  FAVICON_URL: https://avatars.githubusercontent.com/u/99162756?s=400&u=c07b8c59767024d96fb5a7b85a7d4be21a7b73ef&v=4
+  AVATAR_URL: https://avatars.githubusercontent.com/u/99162756?s=400&u=c07b8c59767024d96fb5a7b85a7d4be21a7b73ef&v=4
+  AVATAR_2X_URL: https://avatars.githubusercontent.com/u/99162756?s=400&u=c07b8c59767024d96fb5a7b85a7d4be21a7b73ef&v=4
   AVATAR_ALT: Sean Choo Profile Pic
   NAME: Sean Choo
   BIO: Hey! Just a place where you can connect with me!
