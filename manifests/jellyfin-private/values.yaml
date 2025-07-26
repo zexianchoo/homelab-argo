@@ -24,6 +24,8 @@ ingress:
             name: jellyfin-private
             port:
               number: 8096
+podAnnotations:
+  tailscale.com/expose: "true"
 
 persistence:
   config:
