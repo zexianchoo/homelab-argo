@@ -1,3 +1,5 @@
+nameOverride: "traefik-private"
+
 global:
   checkNewVersion: true
   sendAnonymousUsage: true
