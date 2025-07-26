@@ -13,7 +13,7 @@ spec:
 
     - repoURL: https://k8s-at-home.com/charts/
       chart: littlelink-server
-      targetRevision: 8.27.0
+      targetRevision: 1.4.2
       helm:
         valueFiles:
           - $values/manifests/littlelink/values.yaml
