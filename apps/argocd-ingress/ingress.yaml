@@ -10,7 +10,7 @@ spec:
   tls:
     - hosts:
       - argocd.cobia-mountain.ts.net
-      secretName: argocd-ingress-tls 
+      secretName: argocd-server-tls 
   rules:
   - host: argocd.cobia-mountain.ts.net
     http:
