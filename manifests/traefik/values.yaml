@@ -7,6 +7,11 @@ image:
   pullPolicy: IfNotPresent
 priorityClassName: "system-cluster-critical"
 
+ingressClass:
+  enabled: true
+  name: traefik-public
+  isDefaultClass: true
+
 deployment:
   livenessProbe:
     httpGet:
@@ -46,6 +51,7 @@ providers:
     enabled: true
   kubernetesIngress:
     enabled: true
+    ingressClass: traefik-public
     publishedService:
       path: "traefik/traefik"
 
