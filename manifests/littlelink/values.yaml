@@ -20,13 +20,13 @@ env:
   LINKED_IN: https://linkedin.com
   FOOTER: Thanks for stopping by!
   BUTTON_ORDER: WEBSITE,LINKED_IN,GITHUB
-  CUSTOM_BUTTON_TEXT: "Explore My Projects!"
+  CUSTOM_BUTTON_TEXT: "Personal Website"
   CUSTOM_BUTTON_URL: "https://seanchoo.top/"
   CUSTOM_BUTTON_COLOR: "#2563eb,#7c3aed"
   CUSTOM_BUTTON_TEXT_COLOR: "#ffffff,#ffffff"
-  CUSTOM_BUTTON_ALT_TEXT: "Download my professional resume,A showcase of my recent work and projects"
-  CUSTOM_BUTTON_NAME: "RESUME,PROJECTS"
-  CUSTOM_BUTTON_ICON: "fas file-pdf,fas code-branch"
+  CUSTOM_BUTTON_ALT_TEXT: "Personal Website"
+  CUSTOM_BUTTON_NAME: "Personal Website"
+  CUSTOM_BUTTON_ICON: "fas globe"
 service:
   main:
     ports:
