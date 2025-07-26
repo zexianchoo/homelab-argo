@@ -11,21 +11,19 @@ ingress:
           pathType: Prefix
   tls: 
   - hosts:
-    - jellyfin.cobia-mountain.ts.net
-    secretName: jellyfin-private-tls
-  rules:
-  - host: jellyfin.cobia-mountain.ts.net
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: jellyfin-private
-            port:
-              number: 8096
-podAnnotations:
-  tailscale.com/expose: "true"
+    - jellyfin
+  #   secretName: jellyfin-private-tls
+  # rules:
+  # - host: jellyfin.cobia-mountain.ts.net
+  #   http:
+  #     paths:
+  #     - path: /
+  #       pathType: Prefix
+  #       backend:
+  #         service:
+  #           name: jellyfin-private
+  #           port:
+  #             number: 8096
 
 persistence:
   config:
