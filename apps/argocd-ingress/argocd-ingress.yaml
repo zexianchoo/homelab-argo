@@ -1,25 +1,25 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: argocd-ingress
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: default
-  sources:
-    - repoURL: https://github.com/zexianchoo/homelab-argo.git
-      targetRevision: HEAD
-      path: manifests/argocd-ingress
-      ref: values
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: argocd-ingress
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   project: default
+#   sources:
+#     - repoURL: https://github.com/zexianchoo/homelab-argo.git
+#       targetRevision: HEAD
+#       path: manifests/argocd-ingress
+#       ref: values
 
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: default
+#   destination:
+#     server: 'https://kubernetes.default.svc'
+#     namespace: default
 
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
