@@ -14,10 +14,9 @@ ingressClass:
 
 # Configure the provider to only look for its own class
 providers:
-  kubernetesingress:
+  kubernetesIngress:
     ingressClass: "traefik"
 
 # Expose this Traefik instance publicly
 service:
   type: LoadBalancer
-  
