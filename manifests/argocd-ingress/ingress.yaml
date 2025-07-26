@@ -23,6 +23,6 @@ spec:
         backend:
           service:
             # The name of the default ArgoCD server service
-            name: argocd-server
+            name: argo-cd-argocd-server
             port:
               number: 80
