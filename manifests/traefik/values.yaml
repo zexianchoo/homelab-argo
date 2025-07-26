@@ -1,0 +1,59 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: true
+deployment:
+  image:
+    name: traefik
+    tag: "v2.11"
+  priorityClassName: "system-cluster-critical"
+  livenessProbe:
+    httpGet:
+      path: "/ping"
+      port: 9000 
+    initialDelaySeconds: 5
+    periodSeconds: 10
+entryPoints:
+  web:
+    address: ":8000"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ":8443"
+    http:
+      tls: {}
+  metrics:
+    address: ":9100"
+
+api:
+  dashboard: true
+  insecure: false # The dashboard will be exposed via a secure IngressRoute below.
+
+ping:
+  entryPoint: web # The ping endpoint is accessible on the internal admin entrypoint
+
+# --- Metrics ---
+metrics:
+  prometheus:
+    entryPoint: metrics
+
+# --- Providers ---
+providers:
+  kubernetesCRD:
+    enabled: true
+  kubernetesIngress:
+    enabled: true
+    publishedService:
+      path: "traefik/traefik"
+
+service:
+  type: LoadBalancer
+  ports:
+    - name: web
+      port: 80
+      targetPort: 8000
+    - name: websecure
+      port: 443
+      targetPort: 8443
