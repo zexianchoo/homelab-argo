@@ -2,14 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: littlelink
-  labels:
   namespace: argocd
 spec:
   project: default
   sources:
     - repoURL: https://github.com/zexianchoo/homelab-argo.git
       targetRevision: HEAD
-      path: manifests/linkstack
+      path: manifests/littlelink
       ref: values
 
     - repoURL: https://k8s-at-home.com/charts/
@@ -21,7 +20,7 @@ spec:
 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: linkstack
+    namespace: littlelink
 
   syncPolicy:
     automated:
