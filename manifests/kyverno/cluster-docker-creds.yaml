@@ -1,20 +1,3 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: kyverno:admission-controller # IMPORTANT: Use the exact name of Kyverno's ClusterRole
-rules:
-  - apiGroups:
-      - "" # For core API resources like Secrets
-    resources:
-      - secrets
-    verbs:
-      - get
-      - list
-      # For example, if you want to be explicit about create/delete/update/patch:
-      # - create
-      # - delete
-      # - patch
-      # - update
 ---
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
