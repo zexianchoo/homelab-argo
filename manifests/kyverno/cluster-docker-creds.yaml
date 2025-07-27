@@ -37,3 +37,37 @@ spec:
       clone:
         namespace: default 
         name: dockerhub-creds
+---
+# mutate-serviceaccount-imagepullsecrets.yaml
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: mutate-serviceaccount-imagepullsecrets
+  annotations:
+    policies.kyverno.io/title: Add imagePullSecrets to ServiceAccounts
+    policies.kyverno.io/category: Best Practices
+    policies.kyverno.io/subject: ServiceAccount
+    policies.kyverno.io/description: >-
+      This policy mutates ServiceAccounts to ensure they include the 'dockerhub-creds'
+      imagePullSecret. This allows Pods that use these ServiceAccounts
+      (and don't specify their own imagePullSecrets) to pull images from Docker Hub.
+spec:
+  rules:
+  - name: add-dockerhub-creds-to-sa
+    match:
+      any:
+      - resources:
+          kinds:
+          - ServiceAccount
+    exclude: # Exclude system namespaces where you might not want this
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+          - kube-public
+          - kube-node-lease
+          - kyverno
+    mutate:
+      patchStrategicMerge:
+        imagePullSecrets:
+          - name: dockerhub-creds
