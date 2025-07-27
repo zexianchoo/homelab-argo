@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: dockerhub-creds
+  namespace: default
+spec:
+  secretStoreRef:
+    name: azure-keyvault
+    kind: ClusterSecretStore
+  target:
+    name: dockerhub-creds 
+    template:
+      type: kubernetes.io/dockerconfigjson
+      data:
+        .dockerconfigjson: "{{ .dockerhub-credentials }}"
+  data:
+  - secretKey: dockerhub-credentials
+    remoteRef:
+      key: dockerhub-creds

@@ -20,7 +20,7 @@ spec:
           - $values/manifests/kyverno/values.yaml      
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: kyverno
+    namespace: default
 
   syncPolicy:
     automated:
