@@ -69,10 +69,10 @@ spec:
   tls:
   - hosts:
     - seanchoo.top
-    - "link.seanchoo.top"
+    - "link.seanchoo.top" #hack to bypass cert-manager's validation
     secretName: webfinger-tls
   rules:
-    - host: "temp-test-webfinger.seanchoo.top" 
+    - host: "seanchoo.top" 
       http:
         paths:
           - path: /.well-known/webfinger
