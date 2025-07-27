@@ -10,4 +10,4 @@ priorityClassName: "system-cluster-critical"
 ingressClass:
   name: "traefik"
   enabled: true
-  isDefaultClass: true
+  isDefaultClass: false
