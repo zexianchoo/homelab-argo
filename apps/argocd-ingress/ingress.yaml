@@ -1,17 +1,41 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: argocd-ingress
+#   namespace: argocd
+# spec:
+#   ingressClassName: tailscale
+#   tls:
+#     - hosts:
+#       - argocd.cobia-mountain.ts.net
+#   rules:
+#   - host: argocd.cobia-mountain.ts.net
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: argo-cd-argocd-server
+#             port:
+#               number: 80
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: argocd-ingress
   namespace: argocd
-  # annotations:
-  #   cert-manager.io/cluster-issuer: internal-cluster-issuer
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
-  ingressClassName: tailscale
+  ingressClassName: traefik
   tls:
     - hosts:
-      - argocd.cobia-mountain.ts.net
+      - argofixed.seanchoo.top
   rules:
-  - host: argocd.cobia-mountain.ts.net
+  - host: argofixed.seanchoo.top
     http:
       paths:
       - path: /
@@ -21,30 +45,3 @@ spec:
             name: argo-cd-argocd-server
             port:
               number: 80
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: argocd-ingress-public
-#   namespace: argocd
-#   annotations:
-#     cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
-#     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-#     traefik.ingress.kubernetes.io/router.tls: "true"
-# spec:
-#   ingressClassName: traefik
-#   tls:
-#     - hosts:
-#       - argofixed.seanchoo.top
-#       secretName: argocd-public-tls 
-#   rules:
-#   - host: argofixed.seanchoo.top
-#     http:
-#       paths:
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: argo-cd-argocd-server
-#             port:
-#               number: 31443
