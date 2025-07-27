@@ -1,26 +1,26 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: argocd-ingress-tailscale
-#   namespace: argocd
-# spec:
-#   ingressClassName: tailscale
-#   tls:
-#     - hosts:
-#       - argocd.cobia-mountain.ts.net
-#       secretName: argocd-tailscale-tls
-#   rules:
-#   - host: argocd.cobia-mountain.ts.net
-#     http:
-#       paths:
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: argo-cd-argocd-server
-#             port:
-#               number: 80
-# ---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-ingress-tailscale
+  namespace: argocd
+spec:
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+      - argocd.cobia-mountain.ts.net
+      secretName: argocd-tailscale-tls
+  rules:
+  - host: argocd.cobia-mountain.ts.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argo-cd-argocd-server
+            port:
+              number: 80
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
