@@ -69,7 +69,7 @@ spec:
   tls:
   - hosts:
     - seanchoo.top
-    - "blog.example.com"
+    - "link.seanchoo.top"
     secretName: webfinger-tls
   rules:
     - host: "temp-test-webfinger.seanchoo.top" 
