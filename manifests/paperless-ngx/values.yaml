@@ -27,7 +27,7 @@ ingress:
   main:
     enabled: true
     hosts:
-      - host: paperless.seanchoo.top
+      - host: paperless.cobia-mountain.ts.net
         paths:
           - path: /
     ingressClassName: tailscale
