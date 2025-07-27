@@ -34,6 +34,7 @@ spec:
   tls:
     - hosts:
       - argofixed.seanchoo.top
+      secretName: argocd-server-tls
   rules:
   - host: argofixed.seanchoo.top
     http:
