@@ -69,22 +69,13 @@ spec:
   tls:
   - hosts:
     - seanchoo.top
+    - "blog.example.com"
     secretName: webfinger-tls
   rules:
     - host: "temp-test-webfinger.seanchoo.top" 
       http:
         paths:
           - path: /.well-known/webfinger
-            pathType: Exact 
-            backend:
-              service:
-                name: webfinger-service
-                port:
-                  number: 80
-    - host: "blog.example.com"
-      http:
-        paths:
-          - path: /
             pathType: Exact 
             backend:
               service:
