@@ -71,7 +71,7 @@ spec:
     - seanchoo.top
     secretName: webfinger-tls
   rules:
-    - host: "seanchoo.top"
+    - host: "temp-test-webfinger.seanchoo.top" 
       http:
         paths:
           - path: /.well-known/webfinger
@@ -81,7 +81,7 @@ spec:
                 name: webfinger-service
                 port:
                   number: 80
-    - host: "temp-test-webfinger.seanchoo.top" 
+    - host: "seanchoo.top"
       http:
         paths:
           - path: /.well-known/webfinger
