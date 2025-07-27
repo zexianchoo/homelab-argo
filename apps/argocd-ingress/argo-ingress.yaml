@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: argocd-ingress-tailscale
   namespace: argocd
-  annotations:
-    cert-manager.io/cluster-issuer: internal-cluster-issuer
 spec:
   ingressClassName: tailscale
   tls:
