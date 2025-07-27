@@ -81,10 +81,10 @@ spec:
                 name: webfinger-service
                 port:
                   number: 80
-    - host: "seanchoo.top"
+    - host: "blog.example.com"
       http:
         paths:
-          - path: /.well-known/webfinger
+          - path: /
             pathType: Exact 
             backend:
               service:
