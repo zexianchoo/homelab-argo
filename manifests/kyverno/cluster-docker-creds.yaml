@@ -54,7 +54,7 @@ metadata:
 spec:
   rules:
   - name: add-dockerhub-creds-to-sa
-    skipBackgroundRequests: true
+    skipBackgroundRequests: false
     match:
       any:
       - resources:
