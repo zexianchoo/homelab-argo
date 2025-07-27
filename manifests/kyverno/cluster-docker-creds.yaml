@@ -1,0 +1,38 @@
+# sync-secret-policy.yaml
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: sync-image-pull-secret-to-namespaces
+  annotations:
+    policies.kyverno.io/title: Sync imagePullSecret to new Namespaces
+    policies.kyverno.io/category: Sample
+    policies.kyverno.io/subject: Secret, Namespace
+    policies.kyverno.io/description: >-
+      This policy copies a Secret called `my-registry-secret` from the `default`
+      Namespace to new Namespaces when they are created, and keeps them in sync.
+spec:
+  generateExisting: true 
+  rules:
+  - name: sync-my-registry-secret
+    match:
+      any:
+      - resources:
+          kinds:
+          - Namespace
+    exclude: # Exclude system namespaces
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+          - kube-public
+          - kube-node-lease
+          - kyverno # Exclude Kyverno's own namespace
+    generate:
+      apiVersion: v1
+      kind: Secret
+      name: dockerhub-creds
+      namespace: "{{request.object.metadata.name}}" # Use the new namespace's name
+      synchronize: true 
+      clone:
+        namespace: default 
+        name: dockerhub-creds
