@@ -12,8 +12,8 @@ spec:
     template:
       type: kubernetes.io/dockerconfigjson
       data:
-        .dockerconfigjson: "{{ .dockerhub-credentials }}"
+        .dockerconfigjson: "{{ .dockerhubcredentials }}"
   data:
-  - secretKey: dockerhub-credentials
+  - secretKey: dockerhubcredentials
     remoteRef:
       key: dockerhub-creds
