@@ -30,14 +30,11 @@ ingress:
       - host: paperless.seanchoo.top
         paths:
           - path: /
-    ingressClassName: traefik
-    annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure 
-      cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
+    ingressClassName: tailscale
     tls:
       - secretName: paperless-tls
         hosts:
-          - paperless.seanchoo.top
+          - paperless.cobia-mountain.ts.net
 
 persistence:
   data:
@@ -81,8 +78,6 @@ redis:
       enabled: false
   replica:
     replicaCount: 0
-
-
 
 postgresql:
   enabled: true
