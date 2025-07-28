@@ -42,10 +42,10 @@ spec:
   ingressClassName: tailscale
   tls:
     - hosts:
-        - nginx.hydra-cliff.ts.net
+        - newginx.hydra-cliff.ts.net
       secretName: nginx-tls
   rules:
-    - host: nginx.hydra-cliff.ts.net
+    - host: newginx.hydra-cliff.ts.net
       http:
         paths:
           - path: /

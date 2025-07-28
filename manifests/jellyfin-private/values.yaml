@@ -1,8 +1,6 @@
 ingress:
   enabled: true
   className: tailscale
-  annotations: 
-    cert-manager.io/cluster-issuer: internal-cluster-issuer
   hosts:
     - host: jellyfin.hydra-cliff.ts.net
       paths:
