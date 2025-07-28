@@ -27,33 +27,36 @@ metadata:
 spec:
   selector:
     app: nginx
-  type: ClusterIP
+  # Changed from ClusterIP to expose the service
+  type: LoadBalancer
+  # Tells Tailscale to manage this LoadBalancer
+  loadBalancerClass: tailscale
   ports:
     - name: http
       port: 80
       targetPort: 80
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: nginx
-  namespace: nginx
-spec:
-  ingressClassName: tailscale
-  tls:
-    - hosts:
-        - newginx.hydra-cliff.ts.net
-      secretName: nginx-tls
-  rules:
-    - host: newginx.hydra-cliff.ts.net
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: nginx-service
-                port:
-                  number: 80
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: nginx
+#   namespace: nginx
+# spec:
+#   ingressClassName: tailscale
+#   tls:
+#     - hosts:
+#         - newginx.hydra-cliff.ts.net
+#       secretName: nginx-tls
+#   rules:
+#     - host: newginx.hydra-cliff.ts.net
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: nginx-service
+#                 port:
+#                   number: 80
 
 
