@@ -38,8 +38,6 @@ kind: Ingress
 metadata:
   name: nginx
   namespace: nginx
-  annotations:
-    cert-manager.io/cluster-issuer: internal-cluster-issuer
 spec:
   ingressClassName: tailscale
   tls:
