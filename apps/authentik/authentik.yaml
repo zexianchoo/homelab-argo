@@ -1,31 +1,31 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: authentik
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: default
-  sources:
-    - repoURL: https://github.com/zexianchoo/homelab-argo.git
-      targetRevision: HEAD
-      path: manifests/authentik
-      ref: values
-    - repoURL: https://charts.goauthentik.io/
-      chart: authentik
-      targetRevision: 2025.6.3
-      helm:
-        valueFiles:
-          - $values/manifests/authentik/values.yaml
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: authentik
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   project: default
+#   sources:
+#     - repoURL: https://github.com/zexianchoo/homelab-argo.git
+#       targetRevision: HEAD
+#       path: manifests/authentik
+#       ref: values
+#     - repoURL: https://charts.goauthentik.io/
+#       chart: authentik
+#       targetRevision: 2025.6.3
+#       helm:
+#         valueFiles:
+#           - $values/manifests/authentik/values.yaml
 
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: default
+#   destination:
+#     server: 'https://kubernetes.default.svc'
+#     namespace: default
 
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
