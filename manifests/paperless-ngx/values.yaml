@@ -27,14 +27,14 @@ ingress:
   main:
     enabled: true
     hosts:
-      - host: paperless.cobia-mountain.ts.net
+      - host: paperless.hydra-cliff.ts.net
         paths:
           - path: /
     ingressClassName: tailscale
     tls:
       - secretName: paperless-tls
         hosts:
-          - paperless.cobia-mountain.ts.net
+          - paperless.hydra-cliff.ts.net
 
 persistence:
   data:

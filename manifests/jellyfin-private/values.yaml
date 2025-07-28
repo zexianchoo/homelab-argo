@@ -4,16 +4,16 @@ ingress:
   annotations: 
     cert-manager.io/cluster-issuer: internal-cluster-issuer
   hosts:
-    - host: jellyfin.cobia-mountain.ts.net
+    - host: jellyfin.hydra-cliff.ts.net
       paths:
         - path: /
           pathType: Prefix
   tls: 
     - hosts:
-      - jellyfin.cobia-mountain.ts.net
+      - jellyfin.hydra-cliff.ts.net
       secretName: jellyfin-private-tls
   rules:
-    - host: jellyfin.cobia-mountain.ts.net
+    - host: jellyfin.hydra-cliff.ts.net
       http:
         paths:
         - path: /

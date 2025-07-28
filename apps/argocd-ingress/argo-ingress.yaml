@@ -7,10 +7,10 @@ spec:
   ingressClassName: tailscale
   tls:
     - hosts:
-      - argocd.cobia-mountain.ts.net
+      - argocd.hydra-cliff.ts.net
       secretName: argocd-tailscale-tls
   rules:
-  - host: argocd.cobia-mountain.ts.net
+  - host: argocd.hydra-cliff.ts.net
     http:
       paths:
       - path: /
