@@ -2,16 +2,16 @@ ingress:
   enabled: true
   className: tailscale
   hosts:
-    - host: jellyfin.hydra-cliff.ts.net
+    - host: jellyfin2.hydra-cliff.ts.net
       paths:
         - path: /
           pathType: Prefix
   tls: 
     - hosts:
-      - jellyfin.hydra-cliff.ts.net
+      - jellyfin2.hydra-cliff.ts.net
       secretName: jellyfin-private-tls
   rules:
-    - host: jellyfin.hydra-cliff.ts.net
+    - host: jellyfin2.hydra-cliff.ts.net
       http:
         paths:
         - path: /
