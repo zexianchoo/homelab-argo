@@ -8,7 +8,7 @@ data:
     {
       "links": [
         {
-          "href": "https://authentik.seanchoo.top/application/o/tailscale/",
+          "href": "https://auth.seanchoo.top/application/o/tailscale/",
           "rel": "http://openid.net/specs/connect/1.0/issuer"
         }
       ],
