@@ -1,5 +1,11 @@
 ingress:
-  enabled: false
+  enabled: true
+  className: tailscale
+  hosts:
+    - host: jellyfin.hydra-cliff.ts.net
+      paths:
+        - path: /
+          pathType: Prefix
 
 persistence:
   config:
