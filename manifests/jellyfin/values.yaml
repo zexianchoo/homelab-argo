@@ -1,5 +1,5 @@
 ingress:
-  enabled: false
+  enabled: true
   className: tailscale
   hosts:
     - host: jellyfin.hydra-cliff.ts.net
@@ -10,10 +10,7 @@ ingress:
             service:
               name: jellyfin
               port:
-                number: 11926
-
-service:
-  port: 8096
+                number: 8096
 
 persistence:
   config:
@@ -25,8 +22,3 @@ persistence:
     accessMode: ReadWriteOnce
     size: 25Gi
     storageClass: local-path
-
-jellyfin:
-  env:
-    - name: JELLYFIN_PublishedServerUrl
-      value: "http://jellyfin.hydra-cliff.ts.net"
