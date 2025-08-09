@@ -11,7 +11,9 @@ ingress:
               name: jellyfin
               port:
                 number: 8096
-
+service:
+   type: NodePort
+   
 persistence:
   config:
     enabled: true
