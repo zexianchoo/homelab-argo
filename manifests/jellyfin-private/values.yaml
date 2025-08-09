@@ -8,10 +8,10 @@ ingress:
           pathType: Prefix
   tls: 
     - hosts:
-      - jellyfin2.hydra-cliff.ts.net
+      - jellyfin.hydra-cliff.ts.net
       secretName: jellyfin-private-tls
   rules:
-    - host: jellyfin2.hydra-cliff.ts.net
+    - host: jellyfin.hydra-cliff.ts.net
       http:
         paths:
         - path: /
@@ -22,10 +22,6 @@ ingress:
               port:
                 number: 8096
 
-service:
-  type: LoadBalancer
-  loadBalancerClass: tailscale
-  
 persistence:
   config:
     enabled: true
