@@ -1,5 +1,5 @@
 ingress:
-  enabled: true
+  enabled: false
   className: tailscale
   hosts:
     - host: jellyfin.hydra-cliff.ts.net
@@ -13,7 +13,7 @@ ingress:
                 number: 8096
 service:
    type: NodePort
-   
+
 persistence:
   config:
     enabled: true
