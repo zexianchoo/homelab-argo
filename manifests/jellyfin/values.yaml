@@ -11,14 +11,14 @@ ingress:
               name: jellyfin
               port:
                 number: 8096
-                
-persistence:
-  config:
-    enabled: true
-    size: 5Gi
-  media:
-    enabled: true
-    type: pvc
-    accessMode: ReadWriteOnce
-    size: 25Gi
-    storageClass: local-path
+
+# persistence:
+#   config:
+#     enabled: true
+#     size: 5Gi
+#   media:
+#     enabled: true
+#     type: pvc
+#     accessMode: ReadWriteOnce
+#     size: 25Gi
+#     storageClass: local-path
