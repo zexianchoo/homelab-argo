@@ -15,7 +15,6 @@ ingress:
 service:
   port: 8096
 
-
 persistence:
   config:
     enabled: true
