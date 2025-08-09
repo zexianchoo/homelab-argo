@@ -1,8 +1,8 @@
 ingress:
-  enabled: false
-  className: tailscale
+  enabled: true
+  className: traefik
   hosts:
-    - host: jellyfin.hydra-cliff.ts.net
+    - host: jellyfin.seanchoo.top
       paths:
         - path: /
           pathType: Prefix
