@@ -10,7 +10,11 @@ ingress:
             service:
               name: jellyfin
               port:
-                number: 8096
+                number: 11926
+
+service:
+  port: 11926
+
 
 persistence:
   config:
