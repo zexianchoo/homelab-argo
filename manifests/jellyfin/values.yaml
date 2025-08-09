@@ -25,3 +25,8 @@ persistence:
     accessMode: ReadWriteOnce
     size: 25Gi
     storageClass: local-path
+
+jellyfin:
+  extraEnv:
+    - name: JELLYFIN_PublishedServerUrl
+      value: "jellyfin.hydra-cliff.ts.net"
