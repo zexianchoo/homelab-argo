@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: jellyfin-private
+  name: jellyfin
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -17,10 +17,10 @@ spec:
       targetRevision: 2.3.0
       helm:
         valueFiles:
-          - $values/manifests/jellyfin-private/values.yaml      
+          - $values/manifests/jellyfin/values.yaml      
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: jellyfin-private
+    namespace: jellyfin
 
   syncPolicy:
     automated:
