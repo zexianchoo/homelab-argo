@@ -10,7 +10,7 @@ spec:
   sources:
     - repoURL: https://github.com/zexianchoo/homelab-argo.git
       targetRevision: HEAD
-      path: manifests/jellyfin-private
+      path: manifests/jellyfin
       ref: values
     - repoURL: https://jellyfin.github.io/jellyfin-helm
       chart: jellyfin
