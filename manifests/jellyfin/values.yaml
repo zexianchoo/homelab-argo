@@ -27,6 +27,6 @@ persistence:
     storageClass: local-path
 
 jellyfin:
-  extraEnv:
+  env:
     - name: JELLYFIN_PublishedServerUrl
       value: "jellyfin.hydra-cliff.ts.net"
