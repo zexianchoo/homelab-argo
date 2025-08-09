@@ -5,9 +5,6 @@ metadata:
   namespace: jellyfin-private
 spec:
   ingressClassName: tailscale
-  tls:
-    - hosts:
-        - jellyfin.hydra-cliff.ts.net
   rules:
     - host: jellyfin.hydra-cliff.ts.net
       http:
