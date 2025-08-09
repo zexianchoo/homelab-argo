@@ -1,6 +1,10 @@
 ingress:
   enabled: true
   className: traefik
+  tls:
+    - hosts:
+      - jellyfin.seanchoo.top
+      secretName: jellyfin-tls
   hosts:
     - host: jellyfin.seanchoo.top
       paths:
