@@ -29,4 +29,4 @@ persistence:
 jellyfin:
   env:
     - name: JELLYFIN_PublishedServerUrl
-      value: "jellyfin.hydra-cliff.ts.net"
+      value: "http://jellyfin.hydra-cliff.ts.net"
