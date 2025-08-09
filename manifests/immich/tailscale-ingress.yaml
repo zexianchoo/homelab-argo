@@ -5,9 +5,9 @@ metadata:
   namespace: immich
 spec:
   ingressClassName: tailscale
-  tls:
-    - hosts:
-        - immich.hydra-cliff.ts.net
+  # tls:
+  #   - hosts:
+  #       - immich.hydra-cliff.ts.net
   rules:
     - host: immich.hydra-cliff.ts.net
       http:
