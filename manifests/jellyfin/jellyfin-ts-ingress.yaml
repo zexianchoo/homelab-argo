@@ -28,6 +28,9 @@ spec:
     - protocol: TCP
       port: 8096        
       targetPort: 8096
+  selector:
+    app.kubernetes.io/name: jellyfin
+    app.kubernetes.io/instance: jellyfin
 ---
 apiVersion: v1
 kind: Endpoints
