@@ -1,6 +1,8 @@
 ingress:
-  enabled: true
+  enabled: false
   className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod-cloudflare
   tls:
     - hosts:
       - jellyfin.seanchoo.top
