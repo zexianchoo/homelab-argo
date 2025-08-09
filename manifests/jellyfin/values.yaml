@@ -14,7 +14,7 @@ ingress:
 
 persistence:
   config:
-    enabled: true
+    enabled: false
     size: 5Gi
   media:
     enabled: true
