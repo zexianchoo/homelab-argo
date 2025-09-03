@@ -1,33 +1,33 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: kube-prometheus-stack
-  labels:
-  namespace: argocd
-spec:
-  project: default
-  sources:
-    - repoURL: https://github.com/zexianchoo/homelab-argo.git
-      targetRevision: HEAD
-      path: manifests/kube-prometheus-stack
-      ref: values
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: kube-prometheus-stack
+#   labels:
+#   namespace: argocd
+# spec:
+#   project: default
+#   sources:
+#     - repoURL: https://github.com/zexianchoo/homelab-argo.git
+#       targetRevision: HEAD
+#       path: manifests/kube-prometheus-stack
+#       ref: values
     
-    - repoURL: https://prometheus-community.github.io/helm-charts
-      chart: kube-prometheus-stack
-      targetRevision: 75.8.0
-      helm:
-        valueFiles:
-          - $values/manifests/kube-prometheus-stack/values.yaml
+#     - repoURL: https://prometheus-community.github.io/helm-charts
+#       chart: kube-prometheus-stack
+#       targetRevision: 75.8.0
+#       helm:
+#         valueFiles:
+#           - $values/manifests/kube-prometheus-stack/values.yaml
 
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: kube-prometheus-stack
+#   destination:
+#     server: 'https://kubernetes.default.svc'
+#     namespace: kube-prometheus-stack
 
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true 
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - ServerSideApply=true 
 
