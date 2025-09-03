@@ -1,11 +1,11 @@
-# see https://blog.differentpla.net/blog/2022/02/25/coredns-custom/
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: coredns-custom
-  namespace: kube-system
-data:
-  hydra-cliff.ts.net.server: |
-    hydra-cliff.ts.net {
-      forward . 100.100.100.100
-    }
+# # see https://blog.differentpla.net/blog/2022/02/25/coredns-custom/
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: coredns-custom
+#   namespace: kube-system
+# data:
+#   hydra-cliff.ts.net.server: |
+#     hydra-cliff.ts.net {
+#       forward . 100.100.100.100
+#     }
